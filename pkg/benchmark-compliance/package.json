@@ -1,6 +1,6 @@
 {
-  "name": "benchmark-compliance-ext",
-  "description": "benchmark-compliance-ext plugin",
+  "name": "benchmark-compliance",
+  "description": "benchmark-compliance plugin",
   "version": "0.1.0",
   "private": false,
   "rancher": {

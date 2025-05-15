@@ -1,6 +1,6 @@
 {
-  "name": "image-scan-ext",
-  "description": "image-scan-ext plugin",
+  "name": "network",
+  "description": "network plugin",
   "version": "0.1.0",
   "private": false,
   "rancher": {
