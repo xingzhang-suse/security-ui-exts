@@ -8,11 +8,14 @@
       "ESNext.AsyncIterable",
       "DOM"
     ],
-    "esModuleInterop": true,
     "allowJs": true,
-    "sourceMap": false,
+    "checkJs": false,
+    "skipLibCheck": true,
+    "sourceMap": true,
     "strict": true,
     "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
       "~/*": [
@@ -23,20 +26,49 @@
       ],
       "@shell/*": [
         "./node_modules/@rancher/shell/*"
+      ],
+      "@components/*": ["./node_modules/@rancher/components/*"],
+      "@tests/*": [
+        "./tests/*"
       ]
     },
     "typeRoots": [
       "./node_modules",
-      "./node_modules/@rancher/shell/types"
+      "./node_modules/@rancher/shell/types",
+      "./node_modules/@rancher/components/types"
     ],
     "types": [
       "@types/node",
+      "@types/jest",
+      "@rancher/components/types",
       "cypress",
+      "jest",
       "rancher",
       "shell"
     ]
   },
+  "include": [
+    "./pkg/benchmark-compliance/**/*.ts",
+    "./pkg/benchmark-compliance/**/*.tsx",
+    "./pkg/benchmark-compliance/**/*.vue",
+
+    "./pkg/image-scan/**/*.ts",
+    "./pkg/image-scan/**/*.tsx",
+    "./pkg/image-scan/**/*.vue",
+
+    "./pkg/network/**/*.ts",
+    "./pkg/network/**/*.tsx",
+    "./pkg/network/**/*.vue",
+
+    "./pkg/runtime-process-profile/**/*.ts",
+    "./pkg/runtime-process-profile/**/*.tsx",
+    "./pkg/runtime-process-profile/**/*.vue"
+  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "tests",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "jest.*.ts"
   ]
 }

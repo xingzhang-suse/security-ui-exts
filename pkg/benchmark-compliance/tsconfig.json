@@ -24,7 +24,8 @@
       "@types/jest",
       "@types/lodash",
       "rancher",
-      "shell"
+      "shell",
+      "jest"
     ],
     "lib": [
       "esnext",
@@ -38,7 +39,9 @@
       ],
       "@components/*": [
         "@rancher/components/*"
-      ]
+      ],
+      "@benchmark-compliance/*": ["./*"],
+      "@tests/*": ["./tests/*"]
     }
   },
   "include": [
@@ -47,7 +50,5 @@
     "**/*.tsx",
     "**/*.vue"
   ],
-  "exclude": [
-    "../../node_modules"
-  ]
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }

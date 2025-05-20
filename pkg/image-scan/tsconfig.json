@@ -15,7 +15,8 @@
     "preserveSymlinks": true,
     "typeRoots": [
       "../../node_modules",
-      "../../node_modules/@rancher/shell/types"
+      "../../node_modules/@rancher/shell/types",
+      "./types"
     ],    
     "types": [
       "node",
@@ -24,7 +25,8 @@
       "@types/jest",
       "@types/lodash",
       "rancher",
-      "shell"
+      "shell",
+      "jest"
     ],
     "lib": [
       "esnext",
@@ -38,7 +40,9 @@
       ],
       "@components/*": [
         "@rancher/components/*"
-      ]
+      ],
+      "@benchmark-compliance/*": ["./*"],
+      "@tests/*": ["./tests/*"]
     }
   },
   "include": [
@@ -47,7 +51,5 @@
     "**/*.tsx",
     "**/*.vue"
   ],
-  "exclude": [
-    "../../node_modules"
-  ]
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }
