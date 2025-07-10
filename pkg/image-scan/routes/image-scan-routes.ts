@@ -1,12 +1,28 @@
-import Overview from '../pages/overview.vue'
+import Dashboard from '../pages/index.vue'
+import ImageScanListResource from '../pages/c/_cluster/image-scan/_resource/index.vue';
+// import CreateImageScanResource from '@image-scan/pages/c/_cluster/image-scan/_resource/create.vue';
+// import ViewImageScanResource from '@image-scan/pages/c/_cluster/image-scan/_resource/_id.vue';
+// import ViewImageScanNamespacedResource from '@image-scan/pages/c/_cluster/image-scan/_resource/_namespace/_id.vue';
 
-const imageScanName = 'image_scan';
+const PROD_NAME = 'image_scan';
 const routes = [
+     {
+        name:       `c-cluster-${ PROD_NAME }`,
+        path:       `/c/:cluster/${ PROD_NAME }`,
+        component:  Dashboard,
+        meta:       {
+        product: PROD_NAME,
+        pkg:     PROD_NAME
+        }
+    },
     {
-        name: `c-cluster-${ imageScanName }-overview`,
-        path: `/c/:cluster/${ imageScanName }/overview`,
-        component: Overview
-    }
+        name:      `c-cluster-${ PROD_NAME }-resource`,
+        path:      `/c/:cluster/${ PROD_NAME }/:resource`,
+        component: ImageScanListResource,
+        meta:      {
+            product: PROD_NAME,
+        },
+    },
 ]
 
 export default routes;

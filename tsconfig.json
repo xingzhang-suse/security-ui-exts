@@ -28,6 +28,7 @@
         "./node_modules/@rancher/shell/*"
       ],
       "@components/*": ["./node_modules/@rancher/components/*"],
+      "@image-scan/*": ["./pkg/image-scan/*"],
       "@tests/*": [
         "./tests/*"
       ]

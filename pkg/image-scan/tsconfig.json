@@ -41,7 +41,7 @@
       "@components/*": [
         "@rancher/components/*"
       ],
-      "@benchmark-compliance/*": ["./*"],
+      "@image-scan/*": ["./*"],
       "@tests/*": ["./tests/*"]
     }
   },

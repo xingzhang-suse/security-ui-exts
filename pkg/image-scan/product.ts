@@ -1,35 +1,75 @@
 import { IPlugin } from '@shell/core/types';
+import { DSL } from '@shell/store/type-map';
+import { CR_SBOM, GRP_SBOM } from './types/image-scan';
 
 export function init($plugin: IPlugin, store: any) {
-    const productName = 'image_scan';
-
+    const PROD_NAME = 'image_scan';
     const {
         product,
+        configureType,
+        mapGroup,
         virtualType,
         basicType
-    } = $plugin.DSL(store, productName);
+    } = DSL(store, PROD_NAME);
 
     // registering a top-level product
     product({
         icon: 'pod_security',
         inStore: 'cluster',
+        // ifHaveGroup: GRP_SBOM,
+        weight: 100,
+        typeStoreMap: {
+            [CR_SBOM]: 'cluster',
+        },
+        to: {
+            name: `c-cluster-${ PROD_NAME }`,
+            params: {
+                product: PROD_NAME,
+            },
+            meta: {
+                product: PROD_NAME
+            }
+        }
     });
 
-    // => => => creating a custom page
+    mapGroup('storage.sbombastic.rancher.io', 'sbombastic');
+    
+    configureType(CR_SBOM, {
+        isCreatable: true,
+        isEditable:  true,
+        isRemovable: true,
+        showAge:     true,
+        showState:   true,
+        canYaml:     true,
+        customRoute: {
+            name: `c-cluster-${ PROD_NAME }-sbombastic`,
+            params: {
+                product: PROD_NAME,
+                resource: CR_SBOM
+            },
+            meta: {
+                product: PROD_NAME,
+            }
+        }
+    });
+
     virtualType({
-        label: 'Overview',
-        name:   'overview',
+        label:   "Dashbaord",
+        name:   'dashboard',
         namespaced: false,
         route:    {
-            name:   `c-cluster-${productName}-overview`,
+            name:   `c-cluster-${PROD_NAME}`,
             params: {
-                product: productName
+                product: PROD_NAME,
             },
-            meta: { pkg: "image-scan", product: productName }
+            meta: {
+                product: PROD_NAME,
+            }
         }
     });
 
     basicType([
-        "overview"
-    ]);
+        CR_SBOM,
+        "dashboard",
+    ],GRP_SBOM);
 }
