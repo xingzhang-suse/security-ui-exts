@@ -10,7 +10,7 @@ module.exports = {
               '@':           '.',
               '~':           '.',
               '@benchmark-compliance': './pkg/benchmark-compliance',
-              '@image-scan': './pkg/image-scan',
+              '@sbombastic-image-vulnerability-scanner': './pkg/sbombastic-image-vulnerability-scanner',
               '@network': './pkg/network',
               '@runtime-process-profile': './pkg/runtime-process-profile',
             },

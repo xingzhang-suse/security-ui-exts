@@ -30,7 +30,8 @@
       "@components/*": ["./node_modules/@rancher/components/*"],
       "@tests/*": [
         "./tests/*"
-      ]
+      ],
+      "@sbombastic-image-vulnerability-scanner/*": ["./pkg/sbombastic-image-vulnerability-scanner/*"],
     },
     "typeRoots": [
       "./node_modules",
@@ -52,9 +53,9 @@
     "./pkg/benchmark-compliance/**/*.tsx",
     "./pkg/benchmark-compliance/**/*.vue",
 
-    "./pkg/image-scan/**/*.ts",
-    "./pkg/image-scan/**/*.tsx",
-    "./pkg/image-scan/**/*.vue",
+    "./pkg/sbombastic-image-vulnerability-scanner/**/*.ts",
+    "./pkg/sbombastic-image-vulnerability-scanner/**/*.tsx",
+    "./pkg/sbombastic-image-vulnerability-scanner/**/*.vue",
 
     "./pkg/network/**/*.ts",
     "./pkg/network/**/*.tsx",
