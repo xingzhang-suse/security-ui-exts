@@ -1,0 +1,23 @@
+apiVersion: v1
+entries:
+  sbombastic-image-vulnerability-scanner:
+  - annotations:
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/namespace: cattle-ui-plugin-system
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/permits-os: linux, windows
+      catalog.cattle.io/rancher-version: '>= 2.10.0'
+      catalog.cattle.io/scope: management
+      catalog.cattle.io/ui-component: plugins
+      catalog.cattle.io/ui-extensions-version: '>= 3.0.0 < 4.0.0'
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2025-08-29T00:26:07.434879233Z"
+    description: SBOMbastic Image Vulnerability Scanner plugin
+    digest: 1894590b3c0436c004726c5cdce0ad58df2ca6441c7eee5f4fbf0a4744bfa20c
+    name: sbombastic-image-vulnerability-scanner
+    type: application
+    urls:
+    - assets/sbombastic-image-vulnerability-scanner/sbombastic-image-vulnerability-scanner-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-08-29T00:26:07.43455155Z"
