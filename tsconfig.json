@@ -31,7 +31,7 @@
       "@tests/*": [
         "./tests/*"
       ],
-      "@pkg/*": ["./pkg/sbombastic-image-vulnerability-scanner/*"],
+      "@pkg/*": ["./pkg/sbomscanner-image-vulnerability-scanner/*"],
     },
     "typeRoots": [
       "./node_modules",
@@ -50,9 +50,9 @@
   },
   "include": [
 
-    "./pkg/sbombastic-image-vulnerability-scanner/**/*.ts",
-    "./pkg/sbombastic-image-vulnerability-scanner/**/*.tsx",
-    "./pkg/sbombastic-image-vulnerability-scanner/**/*.vue",
+    "./pkg/sbomscanner-image-vulnerability-scanner/**/*.ts",
+    "./pkg/sbomscanner-image-vulnerability-scanner/**/*.tsx",
+    "./pkg/sbomscanner-image-vulnerability-scanner/**/*.vue",
 
     "./pkg/network/**/*.ts",
     "./pkg/network/**/*.tsx",
