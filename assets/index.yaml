@@ -31,9 +31,9 @@ entries:
       catalog.cattle.io/ui-extensions-version: '>= 3.0.0 < 4.0.0'
     apiVersion: v2
     appVersion: 0.2.0-private
-    created: "2025-10-17T02:16:17.29875145Z"
+    created: "2025-10-18T00:12:32.286369949Z"
     description: SBOMbastic Image Vulnerability Scanner plugin
-    digest: 0af19a9edc2b1a948829de4665277b40a127ce1acafd82bc00d7b6f1f4652aa7
+    digest: ba9b9abfab3a2dc3c36f7c364c9e17d19bd4c7d8dff2a61128793f809d8b20dd
     name: sbombastic-image-vulnerability-scanner
     type: application
     urls:
@@ -58,4 +58,4 @@ entries:
     urls:
     - assets/sbombastic-image-vulnerability-scanner/sbombastic-image-vulnerability-scanner-0.1.0.tgz
     version: 0.1.0
-generated: "2025-10-17T16:56:44.19982984Z"
+generated: "2025-10-18T00:12:32.285757585Z"
