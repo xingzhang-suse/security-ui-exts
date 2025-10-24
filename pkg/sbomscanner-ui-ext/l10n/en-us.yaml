@@ -22,6 +22,7 @@ imageScanner:
     subtitle: Main highlights as of
     description: Main highlights and overview of image vulnerability scanning status
     lastUpdated: Last updated
+    noScanHistory: The registry scan has not been started yet. Please add your registry and start scan.
     button:
       refresh: Refresh
     registryDropdown:

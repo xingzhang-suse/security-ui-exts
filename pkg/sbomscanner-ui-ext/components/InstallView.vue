@@ -142,15 +142,11 @@ export default {
     sbomscannerRepo() {
       const chart = this.charts?.find((chart) => chart.chartName === SBOMSCANNER.CONTROLLER);
 
-      console.log('sbomscannerRepo', this.repos?.find((repo) => repo.id === chart?.repoName));
-
       return this.repos?.find((repo) => repo.id === chart?.repoName);
     },
 
     cnpgRepo() {
       const chart = this.charts?.find((chart) => chart.chartName === CNPG.CONTROLLER);
-
-      console.log('cnpgRepo', this.repos?.find((repo) => repo.id === chart?.repoName));
 
       return this.repos?.find((repo) => repo.id === chart?.repoName);
     },

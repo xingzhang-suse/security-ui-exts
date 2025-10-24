@@ -7,7 +7,10 @@
           {{ t('imageScanner.dashboard.subtitle') }} {{ displayedCurrDate }}&nbsp;&nbsp;&nbsp;&nbsp;{{ displayedCurrTime }}
         </div>
       </div>
-      <div class="filter-dropdown">
+      <div
+        v-if="scaningStats.lastCompletionTimestamp > 0"
+        class="filter-dropdown"
+      >
         <LabeledSelect
           v-model:value="selectedRegistry"
           :options="registryOptions"
@@ -16,8 +19,19 @@
         />
       </div>
     </div>
-
-    <div class="summary-section">
+    <Banner
+      v-if="scaningStats.lastCompletionTimestamp === 0"
+      test-id="no-scan-info"
+      color="info"
+    >
+      <div>
+        {{ t('imageScanner.dashboard.noScanHistory') }}
+      </div>
+    </Banner>
+    <div
+      v-else
+      class="summary-section"
+    >
       <!-- <div class="summary-panel">
         <div class="panel-header">
           <div class="header-left">
@@ -32,7 +46,10 @@
           <ImageRiskAssessment :chartData="affectingVulnerabilitiesData" />
         </div>
       </div> -->
-      <div class="summary-panel">
+      <div
+        test-id="scanning-stats"
+        class="summary-panel"
+      >
         <div class="panel-header">
           <div class="header-left">
             <h3>{{ t('imageScanner.dashboard.scanningStatus.title') }}</h3>
@@ -129,6 +146,7 @@ import { RESOURCE, PRODUCT_NAME, PAGE } from '@pkg/types';
 // import TopRiskyImagesChart from '@pkg/components/TopRiskyImagesChart';
 import LabeledSelect from '@shell/components/form/LabeledSelect';
 import day from 'dayjs';
+import Banner from '@components/Banner/Banner.vue';
 
 export default {
   name:       'Dashboard',
@@ -138,6 +156,7 @@ export default {
     // ImageRiskAssessment,
     // TopRiskyImagesChart,
     LabeledSelect,
+    Banner,
   },
   data() {
     return {

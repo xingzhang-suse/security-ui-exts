@@ -88,7 +88,7 @@ export default {
         medium:   0,
         low:      0,
       },
-      cves: [],
+      cves:                     [],
       topSevereVulnerabilities: [],
       vulnerabilities:          [],
       selectedRows:             [],

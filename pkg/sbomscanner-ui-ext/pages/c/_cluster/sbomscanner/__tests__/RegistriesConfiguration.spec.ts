@@ -60,8 +60,27 @@ describe('RegistriesOverview.vue', () => {
   });
 
   // --- BASIC RENDER ---
-  it('renders correctly and shows title', async () => {
+  it('renders correctly and shows title - No scan data', async () => {
     const wrapper = factory();
+
+    (wrapper.vm as any).scanJobCRD = [];
+    
+    await flushPromises();
+
+    expect(wrapper.exists()).toBe(true);
+    expect(wrapper.find('.title').text()).toContain('imageScanner.registries.title');
+    expect(wrapper.find('.mock-recent').exists()).toBe(false);
+    expect(wrapper.find('.mock-distribution').exists()).toBe(false);
+    expect(wrapper.find('.mock-table').exists()).toBe(true);
+  });
+
+  it('renders correctly and shows title - Has scan data', async () => {
+    const wrapper = factory();
+
+    (wrapper.vm as any).scanJobCRD = [
+      { id: 'reg-mock-job-1' }
+    ];
+
     await flushPromises();
 
     expect(wrapper.exists()).toBe(true);
@@ -103,7 +122,7 @@ describe('RegistriesOverview.vue', () => {
 
   it('formats latestUpdateDateText and latestUpdateTimeText correctly', () => {
     const wrapper = factory();
-    wrapper.vm.latestUpdateTime = new Date('2024-10-01T12:30:00Z');
+    (wrapper.vm as any).latestUpdateTime = new Date('2024-10-01T12:30:00Z');
 
     expect(wrapper.vm.latestUpdateDateText).toContain(day(wrapper.vm.latestUpdateTime).format('MMM'));
     expect(wrapper.vm.latestUpdateTimeText).toContain(day(wrapper.vm.latestUpdateTime).format('h'));
