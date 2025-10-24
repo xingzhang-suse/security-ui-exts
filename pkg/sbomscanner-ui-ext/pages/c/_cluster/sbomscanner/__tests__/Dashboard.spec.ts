@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { mount, flushPromises } from '@vue/test-utils';
 import { createStore } from 'vuex';
 import Dashboard from '../Dashboard.vue';
 import { shallowMount } from '@vue/test-utils';
@@ -88,9 +88,25 @@ describe('Dashboard', () => {
       expect(wrapper.find('.title').text()).toContain('imageScanner.dashboard.title');
     });
 
-    it('should display the registry filter dropdown', () => {
+    it('should display the registry filter dropdown - no scan started', async() => {
+      wrapper.vm.scaningStats.lastCompletionTimestamp = 0;
+      await flushPromises();
       const labeledSelect = wrapper.find('.labeled-select');
+      const noScanInfo = wrapper.find('[test-id="no-scan-info"]');
+      const scanningStats = wrapper.find('[test-id="scanning-stats"]');
+      expect(labeledSelect.exists()).toBe(false);
+      expect(noScanInfo.exists()).toBe(true);
+      expect(scanningStats.exists()).toBe(false);
+    });
+     it('should display the registry filter dropdown - has scan history', async() => {
+      wrapper.vm.scaningStats.lastCompletionTimestamp = 1761263188;
+      await flushPromises();
+      const labeledSelect = wrapper.find('.labeled-select');
+      const noScanInfo = wrapper.find('[test-id="no-scan-info"]');
+      const scanningStats = wrapper.find('[test-id="scanning-stats"]');
       expect(labeledSelect.exists()).toBe(true);
+      expect(noScanInfo.exists()).toBe(false);
+      expect(scanningStats.exists()).toBe(true);
     });
   });
 
@@ -124,7 +140,7 @@ describe('Dashboard', () => {
     };
   }
   describe('Dashboard.vue', () => {
-    let storeMock;
+    let storeMock: any;
 
     beforeEach(() => {
       storeMock = {
@@ -143,7 +159,7 @@ describe('Dashboard', () => {
         global: {
           mocks: {
             $store: storeMock,
-            t: (key) => key // simple i18n mock
+            t: (key: any) => key // simple i18n mock
           }
         },
         ...options

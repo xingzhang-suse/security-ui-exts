@@ -300,6 +300,10 @@ export default {
     font-weight: 400;
   }
 
+  .search-filters {
+    margin-top: 24px;
+  }
+
   .filter-row {
     display: flex;
     gap: 24px;

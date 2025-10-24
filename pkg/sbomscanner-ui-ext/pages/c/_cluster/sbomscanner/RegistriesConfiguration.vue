@@ -29,7 +29,10 @@
         </div>
       </div>
     </div>
-    <div class="summary-section">
+    <div
+      v-if="scanJobCRD && scanJobCRD.length > 0"
+      class="summary-section"
+    >
       <RecentUpdatedRegistries :registry-status-list="registryStatusList" />
       <DistributionChart
         :filter-fn="filterByStatus"
@@ -443,7 +446,7 @@ export default {
     border-radius: 6px;
     border: solid var(--border-width) var(--input-border);
     background: var(--input-bg);
-    margin: 24px 0;
+    margin: 0 24px 0 0;
   }
 
   .score-input {

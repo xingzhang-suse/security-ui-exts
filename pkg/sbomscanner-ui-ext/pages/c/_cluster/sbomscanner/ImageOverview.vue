@@ -307,12 +307,11 @@ export default {
 
         return imageMatch && severityMatch && repositoryMatch && registryMatch && platformMatch;
       });
-
-      this.rowsByRepo = this.preprocessData(filteredRows);
+      const rowsByRepo = this.preprocessData(filteredRows);
 
       return {
-        rows:       filteredRows,
-        rowsByRepo: this.rowsByRepo,
+        rows: filteredRows,
+        rowsByRepo,
       };
     },
     customActions() {
