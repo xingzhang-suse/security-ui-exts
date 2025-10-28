@@ -51,12 +51,12 @@ entries:
       catalog.cattle.io/ui-extensions-version: '>= 3.0.0 < 4.0.0'
     apiVersion: v2
     appVersion: 0.3.0
-    created: "2025-10-23T02:47:10.083565457Z"
-    description: SBOMscanner UI extesion for rancher manager
-    digest: 0c84cde6eb49455bc336eea327635392cac1c34eb2307f87f232c6bda5dcd9a7
+    created: "2025-10-28T01:16:34.52630136Z"
+    description: SBOMscanner UI extension for rancher manager
+    digest: f37c7f6a51161c00bcaa3d5ebc2ac7e74f23f2d7239d7f0eccbd06b02f10b3a4
     name: sbomscanner-ui-ext
     type: application
     urls:
     - assets/sbomscanner-ui-ext/sbomscanner-ui-ext-0.3.0.tgz
     version: 0.3.0
-generated: "2025-10-23T02:47:10.082856098Z"
+generated: "2025-10-28T01:16:34.525923232Z"

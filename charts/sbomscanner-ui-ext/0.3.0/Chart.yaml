@@ -9,7 +9,7 @@ annotations:
   catalog.cattle.io/ui-extensions-version: '>= 3.0.0 < 4.0.0'
 apiVersion: v2
 appVersion: 0.3.0
-description: SBOMscanner UI extesion for rancher manager
+description: SBOMscanner UI extension for rancher manager
 name: sbomscanner-ui-ext
 type: application
 version: 0.3.0
