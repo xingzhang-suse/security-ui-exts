@@ -75,23 +75,8 @@ export default {
 
   watch: {
     combinedWacthedValues: {
-      async handler([newCnpgRepo, newSbomscannerRepo], [oldCnpgRepo, oldSbomscannerRepo]) {
-        let stepNum = 1;
-
-        await this.$nextTick();
-        if (newCnpgRepo !== oldCnpgRepo || newSbomscannerRepo !== oldSbomscannerRepo) {
-          if (newCnpgRepo && newSbomscannerRepo) {
-            stepNum = 3;
-          } else if (newCnpgRepo) {
-            stepNum = 2;
-          } else {
-            stepNum = 1;
-          }
-          this.maxStepNum = Math.max(stepNum, this.maxStepNum);
-          this.$refs.wizard?.goToStep(this.maxStepNum, true);
-        }
-      },
-      deep: true,
+      handler: 'onCombinedWatchedChange',
+      deep:    true,
     },
   },
 
@@ -184,6 +169,23 @@ export default {
 
       if (!this.sbomscannerRepo || !this.controllerChart4Sbomscanner) {
         this.debouncedRefreshCharts(true);
+      }
+    },
+
+    async onCombinedWatchedChange([newCnpgRepo, newSbomscannerRepo], [oldCnpgRepo, oldSbomscannerRepo]) {
+      let stepNum = 1;
+
+      await this.$nextTick();
+      if (newCnpgRepo !== oldCnpgRepo || newSbomscannerRepo !== oldSbomscannerRepo) {
+        if (newCnpgRepo && newSbomscannerRepo) {
+          stepNum = 3;
+        } else if (newCnpgRepo) {
+          stepNum = 2;
+        } else {
+          stepNum = 1;
+        }
+        this.maxStepNum = Math.max(stepNum, this.maxStepNum);
+        this.$refs.wizard?.goToStep(this.maxStepNum, true);
       }
     },
 
@@ -332,35 +334,40 @@ export default {
           this.$refs.wizard?.goToStep(1);
         }
       } else if (!this.hasSbomscannerSchema) {
-        const {
-          repoType, repoName, chartName, versions
-        } = this.controllerChart4Sbomscanner;
+        try {
+          const {
+            repoType, repoName, chartName, versions
+          } = this.controllerChart4Sbomscanner;
 
-        const latestChartVersion = getLatestVersion(this.$store, versions);
+          const latestChartVersion = getLatestVersion(this.$store, versions);
 
-        if (latestChartVersion) {
-          const query = {
-            [REPO_TYPE]: repoType,
-            [REPO]:      repoName,
-            [CHART]:     chartName,
-            [VERSION]:   latestChartVersion
-          };
+          if (latestChartVersion) {
+            const query = {
+              [REPO_TYPE]: repoType,
+              [REPO]:      repoName,
+              [CHART]:     chartName,
+              [VERSION]:   latestChartVersion
+            };
 
-          this.$router.push({
-            name:   'c-cluster-apps-charts-install',
-            params: { cluster: this.currentCluster?.id || '_' },
-            query,
-          });
-        } else {
-          const error = {
-            _statusText: this.t('imageScanner.dashboard.appInstall.versionError.title'),
-            message:     this.t('imageScanner.dashboard.appInstall.versionError.message')
-          };
+            this.$router.push({
+              name:   'c-cluster-apps-charts-install',
+              params: { cluster: this.currentCluster?.id || '_' },
+              query,
+            });
+          } else {
+            const error = {
+              _statusText: this.t('imageScanner.dashboard.appInstall.versionError.title'),
+              message:     this.t('imageScanner.dashboard.appInstall.versionError.message')
+            };
 
-          handleGrowl({
-            error,
-            store: this.$store
-          });
+            handleGrowl({
+              error,
+              store: this.$store
+            });
+          }
+        } catch (error) {
+          this.installSteps[1].ready = false;
+          this.$refs.wizard?.goToStep(2);
         }
       }
     },
