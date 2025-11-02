@@ -107,12 +107,12 @@
           </div>
         </div>
         <div class="filter-item">
-          <label>{{ t('imageScanner.imageDetails.searchByName') }}</label>
+          <label>{{ t('imageScanner.imageDetails.table.headers.package') }}</label>
           <div class="filter-input-wrapper">
             <input
               v-model="filters.packageSearch"
               type="text"
-              :placeholder="t('imageScanner.imageDetails.searchByNamePlaceholder')"
+              :placeholder="t('imageScanner.imageDetails.searchByName')"
               class="filter-input"
             />
             <i
