@@ -318,16 +318,14 @@ export const VULNERABILITY_DETAILS_TABLE = [
     formatter: 'CveNameLink',
     sort:      'cveId',
     width:     '16%',
-    // width: 210,
   },
   {
     name:      'score',
     labelKey:  'imageScanner.imageDetails.table.headers.score',
     value:     'score',
     formatter: 'ScoreCell',
-    sort:      ['score', 'severityNum'],
+    sort:      ['scoreNum', 'severityNum'],
     width:     '12%',
-    // width: 170,
   },
   {
     name:     'package',
@@ -335,7 +333,6 @@ export const VULNERABILITY_DETAILS_TABLE = [
     value:    'package',
     sort:     'package',
     width:    '12%',
-    // width: 170,
   },
   {
     name:      'fixAvailable',
@@ -344,7 +341,6 @@ export const VULNERABILITY_DETAILS_TABLE = [
     formatter: 'FixAvailableCell',
     sort:      'fixAvailable',
     width:     '8%',
-    // width: 120,
   },
   {
     name:      'severity',

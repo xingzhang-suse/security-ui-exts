@@ -109,3 +109,17 @@ export function getSeverityNum(severity: string): number {
 
   return severityOrder[severity?.toLowerCase()] || 0;
 }
+
+export function getScoreNum(scoreStr: string): number {
+  if (!scoreStr) return 0;
+
+  const match = scoreStr.match(/([\d.]+)\s*\(v3\)/);
+
+  if (match && match[1]) {
+    const score = parseFloat(match[1]);
+
+    return Number.isFinite(score) ? score : 0;
+  }
+
+  return 0;
+}
