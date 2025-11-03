@@ -1,5 +1,5 @@
 import {
-  imageDetailsToCSV, downloadCSV, downloadJSON, getScore, getSeverityNum
+  imageDetailsToCSV, downloadCSV, downloadJSON, getScore, getSeverityNum, getScoreNum
 } from '../report';
 
 describe('imageDetailsToCSV', () => {
@@ -327,5 +327,40 @@ describe('getSeverityNum', () => {
     expect(getSeverityNum('')).toBe(0);
     expect(getSeverityNum(undefined as unknown as string)).toBe(0);
     expect(getSeverityNum(null as unknown as string)).toBe(0);
+  });
+});
+
+describe('getScoreNum', () => {
+  it('returns 0 if scoreStr is empty', () => {
+    expect(getScoreNum('')).toBe(0);
+    expect(getScoreNum(null as any)).toBe(0);
+    expect(getScoreNum(undefined as any)).toBe(0);
+  });
+
+  it('parses a valid score string with (v3)', () => {
+    expect(getScoreNum('7.5 (v3)')).toBe(7.5);
+    expect(getScoreNum('10.0 (v3)')).toBe(10.0);
+    expect(getScoreNum('0.1 (v3)')).toBe(0.1);
+  });
+
+  it('handles score strings with extra spaces', () => {
+    expect(getScoreNum('  5.4   (v3)  ')).toBe(5.4);
+    expect(getScoreNum('8.9(v3)')).toBe(8.9);
+  });
+
+  it('returns 0 for invalid score strings', () => {
+    expect(getScoreNum('abc (v3)')).toBe(0);
+    expect(getScoreNum('(v3)')).toBe(0);
+    expect(getScoreNum('no-score')).toBe(0);
+  });
+
+  it('returns 0 if number part is not finite', () => {
+    expect(getScoreNum('NaN (v3)')).toBe(0);
+    expect(getScoreNum('Infinity (v3)')).toBe(0);
+  });
+
+  it('returns 0 if string does not contain (v3)', () => {
+    expect(getScoreNum('7.5')).toBe(0);
+    expect(getScoreNum('7.5 (v2)')).toBe(0);
   });
 });

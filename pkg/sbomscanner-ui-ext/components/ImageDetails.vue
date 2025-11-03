@@ -171,7 +171,7 @@ import MostSevereVulnerabilities from './common/MostSevereVulnerabilities.vue';
 import VulnerabilityTable from './common/VulnerabilityTable';
 import DownloadSBOMBtn from './common/DownloadSBOMBtn';
 import DownloadFullReportBtn from './common/DownloadFullReportBtn.vue';
-import { getScore, getSeverityNum } from '../utils/report';
+import { getScore, getSeverityNum, getScoreNum } from '../utils/report';
 
 export default {
   name:       'ImageDetails',
@@ -387,25 +387,30 @@ export default {
       }
 
       // Transform the vulnerability data to match the expected format
-      return vulnerabilities.map((vuln, index) => ({
-        id:               `${ vuln.cve }-${ vuln.packageName }-${ index }`, // Create unique ID
-        cveId:            vuln.cve,
-        score:            getScore(vuln.cvss, vuln.severity),
-        package:          vuln.packageName,
-        packageVersion:   vuln.installedVersion,
-        packagePath:      this.getPackagePath(vuln.purl),
-        fixAvailable:     vuln.fixedVersions && vuln.fixedVersions.length > 0,
-        fixVersion:       vuln.fixedVersions ? vuln.fixedVersions.join(', ') : '',
-        severity:         vuln.severity?.toLowerCase() || this.t('imageScanner.general.unknown'),
-        severityNum:      getSeverityNum(vuln.severity),
-        exploitability:   vuln.suppressed ? this.t('imageScanner.imageDetails.suppressed') : this.t('imageScanner.imageDetails.affected'),
-        description:      vuln.description,
-        title:            vuln.title,
-        references:       vuln.references || [],
-        // Add diffID for layer grouping
-        diffID:           vuln.diffID,
-        installedVersion: vuln.installedVersion
-      }));
+      return vulnerabilities.map((vuln, index) => {
+        const score = getScore(vuln.cvss, vuln.severity);
+
+        return ({
+          id:               `${ vuln.cve }-${ vuln.packageName }-${ index }`, // Create unique ID
+          cveId:            vuln.cve,
+          score,
+          scoreNum:         getScoreNum(score),
+          package:          vuln.packageName,
+          packageVersion:   vuln.installedVersion,
+          packagePath:      this.getPackagePath(vuln.purl),
+          fixAvailable:     vuln.fixedVersions && vuln.fixedVersions.length > 0,
+          fixVersion:       vuln.fixedVersions ? vuln.fixedVersions.join(', ') : '',
+          severity:         vuln.severity?.toLowerCase() || this.t('imageScanner.general.unknown'),
+          severityNum:      getSeverityNum(vuln.severity),
+          exploitability:   vuln.suppressed ? this.t('imageScanner.imageDetails.suppressed') : this.t('imageScanner.imageDetails.affected'),
+          description:      vuln.description,
+          title:            vuln.title,
+          references:       vuln.references || [],
+          // Add diffID for layer grouping
+          diffID:           vuln.diffID,
+          installedVersion: vuln.installedVersion
+        });
+      });
     },
 
     totalVulnerabilities() {
