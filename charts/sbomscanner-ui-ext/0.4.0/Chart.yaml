@@ -13,3 +13,5 @@ description: SBOMscanner UI extension for rancher manager
 name: sbomscanner-ui-ext
 type: application
 version: 0.4.0
+icon: >-
+  https://raw.githubusercontent.com/neuvector/security-ui-ext/main/pkg/sbomscanner-ui-ext/sb-icon.svg
