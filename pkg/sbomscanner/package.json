@@ -1,5 +1,5 @@
 {
-  "name": "sbomscanner",
+  "name": "sbomscanner-ui",
   "description": "SBOMscanner UI extension for rancher manager",
   "version": "0.4.2",
   "private": false,
