@@ -1,9 +1,9 @@
 {
   "name": "sbomscanner-ui-ext",
   "description": "SBOMscanner UI extension for rancher manager",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "private": false,
-  "icon": "https://raw.githubusercontent.com/neuvector/security-ui-exts/main/pkg/sbomscanner-ui-ext/sb-icon.svg",
+  "icon": "https://raw.githubusercontent.com/xingzhang-suse/security-ui-exts/main/pkg/sbomscanner-ui-ext/assets/img/icon-sbomscanner.svg",
   "rancher": {
     "annotations": {
       "catalog.cattle.io/display-name": "SBOMScanner",
