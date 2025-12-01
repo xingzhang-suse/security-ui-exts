@@ -15,4 +15,4 @@ name: sbomscanner-ui-ext
 type: application
 version: 0.4.3
 icon: >-
-  https://raw.githubusercontent.com/neuvector/security-ui-exts/main/pkg/sbomscanner-ui-ext/sb-icon.svg
+  https://raw.githubusercontent.com/xingzhang-suse/security-ui-exts/main/pkg/sbomscanner-ui-ext/assets/img/icon-sbomscanner.svg
