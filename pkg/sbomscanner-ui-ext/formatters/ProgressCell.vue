@@ -21,7 +21,7 @@ export default {
       <span v-if="value.error">|
         <TextWithPoppedDetail
           :value="t('imageScanner.general.error')"
-          :detail="{title: `${value.metadata?.name} - ${t('imageScanner.registries.configuration.scanTable.header.error')}`, message: value.error, type: 'error' }"
+          :detail="{title: `${value.metadata?.name || value.registryName} - ${t('imageScanner.registries.configuration.scanTable.header.error')}`, message: value.error, type: 'error' }"
         />
       </span>
     </span>
