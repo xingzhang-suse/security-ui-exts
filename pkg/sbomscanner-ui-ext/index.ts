@@ -19,7 +19,7 @@ export default function(plugin: IPlugin): void {
 
   // Add a tab to workload detail page to show vulnerabilities
   plugin.addTab(
-    TabLocation.RESOURCE_DETAIL_PAGE,
+    TabLocation.RESOURCE_DETAIL,
     {
       resource: [
         POD,
