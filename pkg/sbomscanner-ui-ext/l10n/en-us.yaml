@@ -363,6 +363,8 @@ imageScanner:
         affectingCVEs: Affecting CVEs
         severity: Severity
         imagesUsed: Images used
+    buttons:
+      downloadReport: Download report
   enum:
     cve:
       critical: Critical
