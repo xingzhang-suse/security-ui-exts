@@ -186,6 +186,9 @@ export default {
       deep: true
     }
   },
+  async fetch() {
+    await this.$store.dispatch('cluster/findAll', { type: RESOURCE.REGISTRY, opt: { force: true } });
+  },
   methods: {
     onSelectionChange(selected) {
       this.selectedRows = selected || [];
