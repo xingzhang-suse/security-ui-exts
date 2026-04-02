@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     computedSeverity() {
-      if (!this.severity) {
+      if (!this.severity || !this.score) {
         return 'na';
       }
 
