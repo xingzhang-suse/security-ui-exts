@@ -34,7 +34,7 @@ export default {
         params: {
           cluster:   this.$route.params.cluster,
           namespace: this.row.metadata.namespace,
-          id:        this.row.metadata.name,
+          id:        this.row.kind === 'VulnerabilityReport' ? this.row.metadata.name : this.row.name,
         }
       };
     }

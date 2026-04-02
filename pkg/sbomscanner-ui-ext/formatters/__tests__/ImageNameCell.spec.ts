@@ -20,65 +20,54 @@ describe('ImageNameCell.vue', () => {
     });
   };
 
-  it('should render a link with the correct display name and URL', () => {
+  it('should render display name from imageMetadata', () => {
     const mockRow = {
       metadata:      { name: 'my-image-resource-name', namespace: 'sbomscanner' },
       imageMetadata: {
         registryURI: 'docker.io',
         repository:  'my-repo/my-app',
         tag:         'v1.0.0'
-      }
+      },
+      kind: 'VulnerabilityReport',
     };
     const expectedDisplayName = 'docker.io/my-repo/my-app:v1.0.0';
 
     const wrapper = mountComponent(mockRow);
     const linkStub = wrapper.findComponent(RouterLinkStub);
 
-    const expectedLink = {
-      'name':   'c-cluster-mocked-product-mocked-images-page-namespace-id',
-      'params': {
-        'cluster':   mockClusterId,
-        'namespace': mockRow.metadata.namespace,
-        'id':        mockRow.metadata.name,
-      }
-    };
-
-    const receivedLink = linkStub.props('to');
-
     expect(linkStub.exists()).toBe(true);
     expect(linkStub.text()).toBe(expectedDisplayName);
-    expect(receivedLink.name).toBe(expectedLink.name);
-    expect(receivedLink.params.cluster).toBe(expectedLink.params.cluster);
-    expect(receivedLink.params.namespace).toBe(expectedLink.params.namespace);
-    expect(receivedLink.params.id).toBe(expectedLink.params.id);
   });
 
-  it('should handle missing imageMetadata gracefully', () => {
+  it('should build imageDetailLink using metadata.name for VulnerabilityReport', () => {
     const mockRow = {
-      metadata: { name: 'my-image-resource-name-2', namespace: 'sbomscanner' }
+      kind:     'VulnerabilityReport',
+      metadata: { name: 'report-name', namespace: 'sbomscanner' },
+      name:     'image-cr-name'
     };
-
-    const expectedDisplayName = '';
 
     const wrapper = mountComponent(mockRow);
-    const linkStub = wrapper.findComponent(RouterLinkStub);
+    const receivedLink = wrapper.vm.imageDetailLink;
 
-    const expectedLink = {
-      'name':   'c-cluster-mocked-product-mocked-images-page-namespace-id',
-      'params': {
-        'cluster':   mockClusterId,
-        'namespace': mockRow.metadata.namespace,
-        'id':        mockRow.metadata.name,
-      }
+    expect(receivedLink.name).toBe('c-cluster-mocked-product-mocked-images-page-namespace-id');
+    expect(receivedLink.params.cluster).toBe(mockClusterId);
+    expect(receivedLink.params.namespace).toBe('sbomscanner');
+    expect(receivedLink.params.id).toBe('report-name');
+  });
+
+  it('should build imageDetailLink using row.name for non-VulnerabilityReport', () => {
+    const mockRow = {
+      kind:     'Image',
+      metadata: { name: 'report-name-ignored', namespace: 'sbomscanner' },
+      name:     'image-cr-name'
     };
 
-    const receivedLink = linkStub.props('to');
+    const wrapper = mountComponent(mockRow);
+    const receivedLink = wrapper.vm.imageDetailLink;
 
-    expect(linkStub.exists()).toBe(true);
-    expect(linkStub.text()).toBe(expectedDisplayName);
-    expect(receivedLink.name).toBe(expectedLink.name);
-    expect(receivedLink.params.cluster).toBe(expectedLink.params.cluster);
-    expect(receivedLink.params.namespace).toBe(expectedLink.params.namespace);
-    expect(receivedLink.params.id).toBe(expectedLink.params.id);
+    expect(receivedLink.name).toBe('c-cluster-mocked-product-mocked-images-page-namespace-id');
+    expect(receivedLink.params.cluster).toBe(mockClusterId);
+    expect(receivedLink.params.namespace).toBe('sbomscanner');
+    expect(receivedLink.params.id).toBe('image-cr-name');
   });
 });
