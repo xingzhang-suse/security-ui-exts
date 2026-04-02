@@ -21,7 +21,7 @@
             :propertyName="properties.repositories.label"
             :rows="repositories"
             type="active"
-            @show-configuration="onShowConfiguration"
+            @show-configuration="(returnFocusSelector) => $emit('show-configuration', returnFocusSelector, 'labels-and-annotations')"
           />
         </div>
         <div class="column column-3">
@@ -46,7 +46,6 @@ import KeyValue from '../rancher-rewritten/shell/components/KeyValue.vue'; //'@s
 export default {
   name:       'RegistryDetailsMeta',
   components: { KeyValue },
-  emits:      ['show-configuration'],
   props:      {
     properties: {
       type:     Object,
@@ -55,9 +54,6 @@ export default {
     },
   },
   methods: {
-    onShowConfiguration(returnFocusSelector) {
-      this.$emit('show-configuration', returnFocusSelector, 'repositories');
-    },
     getPlatformTag(platform) {
       const { os, arch, variant } = platform;
 
@@ -66,7 +62,7 @@ export default {
   },
   computed: {
     repositories() {
-      return this.properties.repositories?.list?.map((repo) => ({ key: repo.name, value: jsyaml.dump(repo) })) || [];
+      return this.properties.repositories.list?.map((repo) => ({ key: repo.name, value: jsyaml.dump(repo) })) || [];
     }
   }
 };
