@@ -1,5 +1,5 @@
 <template>
-  <Loading v-if="$fetchState.pending" />
+  <Loading v-if="$fetchState.pending || !registry" />
   <div v-else class="registry-details">
     <div class="about">
       <div class="header">
@@ -43,7 +43,11 @@
           />
         </div>
       </div>
-      <RegistryDetailsMeta :properties="registryMetadata" />
+      <RegistryDetailsMeta
+        v-if="registryMetadata"
+        :properties="registryMetadata"
+        @show-configuration="onShowConfiguration"
+      />
     </div>
     <RegistryDetailScanTable :scan-history="scanHistory" />
   </div>
@@ -76,7 +80,7 @@ export default {
       RESOURCE,
       PAGE,
       registry:         null,
-      registryMetadata: [],
+      registryMetadata: null,
       scanHistory:      [],
       canEdit:          getPermissions(this.$store.getters).canEdit,
     };
@@ -90,6 +94,9 @@ export default {
     }
   },
   methods: {
+    onShowConfiguration(returnFocusSelector, defaultTab) {
+      this.registry?.showConfiguration?.(returnFocusSelector, defaultTab);
+    },
     async loadData() {
       this.registry = await this.$store.dispatch('cluster/find', { type: RESOURCE.REGISTRY, id: `${ this.$route.params.namespace }/${ this.$route.params.id }` });
       this.scanHistory = (await this.$store.dispatch('cluster/findAll', { type: RESOURCE.SCAN_JOB })).filter((rec) => {
