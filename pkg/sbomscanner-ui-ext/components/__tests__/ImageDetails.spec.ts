@@ -277,18 +277,30 @@ describe('ImageDetails.vue', () => {
                 packageName:      'openssl',
                 installedVersion: '1.0.2',
                 severity:         'High',
-                cvss:             [{ metrics: { baseScore: 7.5 } }],
+                cvss:             { nvd: { v3score: 7.5 } },
                 fixedVersions:    ['1.0.3'],
-                purl:             'pkg:deb/debian/openssl@1.0.2'
+                purl:             'pkg:deb/debian/openssl@1.0.2',
+                suppressed:       false,
+                vexStatus:        { statement: 'not affected' },
+                description:      'openssl vulnerability description',
+                title:            'openssl vulnerability title',
+                references:       ['https://example.com/cve-2025-0001'],
+                diffID:           'sha256:layer-openssl'
               },
               {
                 cve:              'CVE-2025-0001',
                 packageName:      'openssl',
                 installedVersion: '1.0.2',
                 severity:         'High',
-                cvss:             [{ metrics: { baseScore: 7.5 } }],
+                cvss:             { nvd: { v3score: 7.5 } },
                 fixedVersions:    ['1.0.3'],
-                purl:             'pkg:deb/debian/openssl@1.0.2'
+                purl:             'pkg:deb/debian/openssl@1.0.2',
+                suppressed:       false,
+                vexStatus:        { statement: 'not affected' },
+                description:      'duplicate entry should be removed',
+                title:            'duplicate title',
+                references:       ['https://example.com/duplicate'],
+                diffID:           'sha256:layer-openssl-duplicate'
               },
             ]
           },
@@ -299,18 +311,30 @@ describe('ImageDetails.vue', () => {
                 packageName:      'nginx',
                 installedVersion: '1.23.0',
                 severity:         'Critical',
-                cvss:             [{ metrics: { baseScore: 9.8 } }],
+                cvss:             { nvd: { v3score: 9.8 } },
                 fixedVersions:    ['1.23.1'],
-                purl:             'pkg:deb/debian/nginx@1.23.0'
+                purl:             'pkg:deb/debian/nginx@1.23.0',
+                suppressed:       true,
+                vexStatus:        { statement: 'accepted risk' },
+                description:      'nginx vulnerability description',
+                title:            'nginx vulnerability title',
+                references:       ['https://example.com/cve-2025-0002'],
+                diffID:           'sha256:layer-nginx'
               },
               {
                 cve:              'CVE-2025-0001',
                 packageName:      'openssl',
                 installedVersion: '1.0.2',
                 severity:         'High',
-                cvss:             [{ metrics: { baseScore: 7.5 } }],
+                cvss:             { nvd: { v3score: 7.5 } },
                 fixedVersions:    ['1.0.3'],
-                purl:             'pkg:deb/debian/openssl@1.0.2'
+                purl:             'pkg:deb/debian/openssl@1.0.2',
+                suppressed:       false,
+                vexStatus:        { statement: 'not affected' },
+                description:      'duplicate from second result',
+                title:            'duplicate title from second result',
+                references:       ['https://example.com/duplicate-second'],
+                diffID:           'sha256:layer-openssl-second-duplicate'
               },
             ]
           }
@@ -321,7 +345,47 @@ describe('ImageDetails.vue', () => {
     const details = wrapper.vm.vulnerabilityDetails;
 
     expect(details).toHaveLength(2);
-    expect(details.map((item: any) => item.cveId)).toEqual(expect.arrayContaining(['CVE-2025-0001', 'CVE-2025-0002']));
+
+    const openssl = details.find((item: any) => item.cveId === 'CVE-2025-0001');
+    const nginx = details.find((item: any) => item.cveId === 'CVE-2025-0002');
+
+    expect(openssl).toBeTruthy();
+    expect(openssl.cveId).toBe('CVE-2025-0001');
+    expect(openssl.score).toBe('7.5 (v3)');
+    expect(openssl.scoreNum).toBe(7.5);
+    expect(openssl.package).toBe('openssl');
+    expect(openssl.packageVersion).toBe('1.0.2');
+    expect(openssl.packagePath).toBe('deb/debian/openssl');
+    expect(openssl.fixAvailable).toBe(true);
+    expect(openssl.fixVersion).toBe('1.0.3');
+    expect(openssl.severity).toBe('high');
+    expect(openssl.severityNum).toBe(4);
+    expect(openssl.exploitability).toBe('imageScanner.imageDetails.affected');
+    expect(openssl.vexStatement).toBe('');
+    expect(openssl.description).toBe('openssl vulnerability description');
+    expect(openssl.title).toBe('openssl vulnerability title');
+    expect(openssl.references).toEqual(['https://example.com/cve-2025-0001']);
+    expect(openssl.diffID).toBe('sha256:layer-openssl');
+    expect(openssl.installedVersion).toBe('1.0.2');
+
+    expect(nginx).toBeTruthy();
+    expect(nginx.cveId).toBe('CVE-2025-0002');
+    expect(nginx.score).toBe('9.8 (v3)');
+    expect(nginx.scoreNum).toBe(9.8);
+    expect(nginx.package).toBe('nginx');
+    expect(nginx.packageVersion).toBe('1.23.0');
+    expect(nginx.packagePath).toBe('deb/debian/nginx');
+    expect(nginx.fixAvailable).toBe(true);
+    expect(nginx.fixVersion).toBe('1.23.1');
+    expect(nginx.severity).toBe('critical');
+    expect(nginx.severityNum).toBe(5);
+    expect(nginx.exploitability).toBe('imageScanner.imageDetails.suppressed');
+    expect(nginx.vexStatement).toBe('accepted risk');
+    expect(nginx.description).toBe('nginx vulnerability description');
+    expect(nginx.title).toBe('nginx vulnerability title');
+    expect(nginx.references).toEqual(['https://example.com/cve-2025-0002']);
+    expect(nginx.diffID).toBe('sha256:layer-nginx');
+    expect(nginx.installedVersion).toBe('1.23.0');
   });
 
   // it('updates cachedFilteredVulnerabilities when filters are applied', async() => {
