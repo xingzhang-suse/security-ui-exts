@@ -62,6 +62,7 @@ export function init($plugin: any, store: any) {
   virtualType({
     labelKey: 'imageScanner.workloads.configuration.menu.title',
     name: VIRTUAL_WORKLOAD_SCAN,
+    ifHaveType: RESOURCE.REGISTRY,
     weight: 96,
     route: {
       // Use whatever route you previously used to navigate to your singleton CR page
