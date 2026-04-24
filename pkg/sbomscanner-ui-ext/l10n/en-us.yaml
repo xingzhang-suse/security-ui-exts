@@ -1,21 +1,24 @@
 product:
-  imageScanner: SBOMScanner
+  imageScanner: Vulnerability Scanner
 imageScanner:
   installationWizard: 
     repo4Cnpg:
+      step: CNPG repo
       title: Add the CNPG Helm repository
-      description: To customize the CloudNativePG installation, add the CNPG Helm repository to your Helm client to access the SBOMScanner chart. You can also skip this step to bring your own PostgreSQL instance instead of using CloudNativePG
+      description: To customize the CloudNativePG installation, add the CNPG Helm repository to your Helm client to access the SUSE Security vulnerability scanner chart. You can also skip this step to bring your own PostgreSQL instance instead of using CloudNativePG
     repo4Sbomscanner:
-      title: Add the SBOMScanner Helm repository
-      description: Add the SBOMScanner Helm repository to your Helm client to access the SBOMScanner chart.
+      step: Vulnerability scanner repo
+      title: Add the SUSE Security vulnerability scanner Helm repository
+      description: Add the SUSE Security vulnerability scanner Helm repository to your Helm client to access the SUSE Security vulnerability scanner chart.
     install4Cnpg:
+      step: App installation
       title: Installation for CloudNativePG
-      description: Install and configure CNPG through Rancher manager to have customized database for SBOMScanner.
+      description: Install and configure CNPG through Rancher manager to have customized database for SUSE Security vulnerability scanner.
     install4Sbomscanner:
-      title: Installation for SBOMScanner
-      description: Install and configure SBOMScanner to get a comprehensive view of your container image vulnerabilities and risk assessment across all your registries.
+      title: Installation for SUSE Security vulnerability scanner
+      description: Install and configure SUSE Security vulnerability scanner to get a comprehensive view of your container image vulnerabilities and risk assessment across all your registries.
     button:
-      skipToSbomscannerRepo: Skip to Repository of SBOMScanner
+      skipToSbomscannerRepo: Skip to Repository of SUSE Security vulnerability scanner
       previous: Previous
   dashboard:
     title: Dashboard
@@ -54,16 +57,16 @@ imageScanner:
       viewAll: View all
       totalVulns: total vulnerabilities
     appInstall:
-      title: Install SBOMScanner
+      title: Install SUSE Security vulnerability scanner
       description: Get a comprehensive view of your container image vulnerabilities and focus on risks that truly matter.
       button4Entry: Start installation
       button4Cnpg: Install CloudNativePG
-      button4Sbomscanner: Install SBOMScanner
-      reload: Unable to fetch SBOMScanner Helm chart - reload required.
+      button4Sbomscanner: Install SUSE Security vulnerability scanner
+      reload: Unable to fetch SUSE Security vulnerability scanner Helm chart - reload required.
       checking: Checking...
       versionError:
         title: Chart Version not found.
-        message: Unable to determine the latest stable version of the SBOMScanner chart. Please make sure the Helm repository is configured correctly.
+        message: Unable to determine the latest stable version of the SUSE Security vulnerability scanner chart. Please make sure the Helm repository is configured correctly.
   registries:
     title: Registries configuration
     button:
@@ -433,7 +436,7 @@ imageScanner:
       complete: Finished at
       failed: Failed at
   general:
-    product: SBOMScanner
+    product: SUSE Security vulnerability scanner
     refresh: Refresh data
     ago: ago
     justNow: Just now
@@ -455,9 +458,9 @@ imageScanner:
     yes: Yes
     no: No
     workloadBanner:
-      text: Data provided by <product>SBOMScanner</product>, Want to learn more about this extension? Read our <documentation>documentation</documentation>
+      text: Data provided by <product>SUSE Security vulnerability scanner</product>, Want to learn more about this extension? Read our <documentation>documentation</documentation>
     cvesPanel:
-      text: Provided by <provider>SBOMScanner</provider>
+      text: Provided by <provider>SUSE Security vulnerability scanner</provider>
 typeLabel:
   sbomscanner.kubewarden.io.registry: Registries configuration
   sbomscanner.kubewarden.io.vexhub: VEX Management
@@ -552,6 +555,6 @@ asyncButton:
     success: Added
     waiting: Adding...
   sbomscannerRepository:
-    action: Add SBOMScanner repository
+    action: Add SUSE Security vulnerability scanner repository
     success: Added
     waiting: Adding...

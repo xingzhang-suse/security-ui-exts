@@ -64,17 +64,17 @@ export default {
     const installSteps = ref([
       {
         name:  'repository4Cnpg',
-        label: 'CNPG Repo',
+        label: this.t('imageScanner.installationWizard.repo4Cnpg.step'),
         ready: false,
       },
       {
         name:  'repository4Sbomscanner',
-        label: 'Sbomscanner Repo',
+        label: this.t('imageScanner.installationWizard.repo4Sbomscanner.step'),
         ready: false,
       },
       {
         name:  'install',
-        label: 'App Install',
+        label: this.t('imageScanner.installationWizard.install4Cnpg.step'),
         ready: false,
       },
     ]);
