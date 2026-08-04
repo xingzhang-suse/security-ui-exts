@@ -1,7 +1,7 @@
 {
   "name": "runtime-enforcer",
   "description": "runtime-enforcer plugin",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.3",
   "private": false,
   "icon": "https://raw.githubusercontent.com/rancher/security-ui-exts/main/pkg/runtime-enforcer/assets/img/runtime-enforcer-logo.svg",
   "rancher": {
@@ -9,8 +9,7 @@
       "catalog.cattle.io/display-name": "SUSE Security Runtime Enforcer",
       "catalog.cattle.io/kube-version": ">= v1.16.0-0",
       "catalog.cattle.io/rancher-version": ">= 2.11.0-0",
-      "catalog.cattle.io/ui-extensions-version": ">= 3.0.0 < 4.0.0",
-      "catalog.cattle.io/prime-only": "true"
+      "catalog.cattle.io/ui-extensions-version": ">= 3.0.0 < 4.0.0"
     }
   },
   "scripts": {},
