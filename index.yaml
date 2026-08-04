@@ -31,6 +31,28 @@ entries:
       catalog.cattle.io/namespace: cattle-ui-plugin-system
       catalog.cattle.io/os: linux
       catalog.cattle.io/permits-os: linux, windows
+      catalog.cattle.io/rancher-version: '>= 2.11.0-0'
+      catalog.cattle.io/scope: management
+      catalog.cattle.io/ui-component: plugins
+      catalog.cattle.io/ui-extensions-version: '>= 3.0.0 < 4.0.0'
+    apiVersion: v2
+    appVersion: 0.1.0-rc.3
+    created: "2026-08-04T21:15:30.045615595Z"
+    description: runtime-enforcer plugin
+    digest: cfcccf01e77df8a3a03011878b91f828b38ea3d803953f40bf1e2c9bc6c60ded
+    icon: https://raw.githubusercontent.com/rancher/security-ui-exts/main/pkg/runtime-enforcer/assets/img/runtime-enforcer-logo.svg
+    name: runtime-enforcer
+    type: application
+    urls:
+    - assets/runtime-enforcer/runtime-enforcer-0.1.0-rc.3.tgz
+    version: 0.1.0-rc.3
+  - annotations:
+      catalog.cattle.io/certified: rancher
+      catalog.cattle.io/display-name: SUSE Security Runtime Enforcer
+      catalog.cattle.io/kube-version: '>= v1.16.0-0'
+      catalog.cattle.io/namespace: cattle-ui-plugin-system
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/permits-os: linux, windows
       catalog.cattle.io/prime-only: "true"
       catalog.cattle.io/rancher-version: '>= 2.11.0-0'
       catalog.cattle.io/scope: management
@@ -297,4 +319,4 @@ entries:
     urls:
     - assets/vulnerability-scanner/vulnerability-scanner-0.8.0-rc.1.tgz
     version: 0.8.0-rc.1
-generated: "2026-08-04T15:46:57.593175945Z"
+generated: "2026-08-04T21:15:30.045035308Z"
