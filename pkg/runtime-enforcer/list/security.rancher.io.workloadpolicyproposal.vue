@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import Banner from '@components/Banner/Banner.vue';
 import PaginatedResourceTable from '@shell/components/PaginatedResourceTable';
@@ -41,6 +41,10 @@ const debouncedFilters = ref({ ...filters.value });
 const selectedRows = ref<WorkloadPolicyProposal[]>([]);
 const proposalTable = ref<any>(null);
 const useQueryParamsForSimpleFiltering = false;
+
+onMounted(() => {
+  console.log('Resource data:', proposalTable.value);
+});
 
 watch(
   filters,
