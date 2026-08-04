@@ -272,7 +272,7 @@ export default {
 
             <template #description>
               <template v-if="workloadRemovalOption === 'manual'">
-                <p class="confirm-text">
+                <p class="confirm-text-manual">
                   <RichTranslation :k="manualDescriptionKey">
                     <template #learnMore="{ content }">
                       <SubtleLink
@@ -337,8 +337,13 @@ export default {
     margin: 16px 0 24px;
   }
 
-  .confirm-text {
+  .confirm-text-manual {
     margin: 0 0 16px;
+    cursor: default;
+  }
+
+  .confirm-text {
+    margin: 0 0 24px;
   }
 
   .bg-danger {
@@ -361,12 +366,12 @@ export default {
     }
 
     .option-tooltip-icon {
-      margin-left: 8px;
+      margin-left: 4px;
     }
   }
 
   .cp-board {
-    margin-left: -4px;
+    margin-left: -8px;
     right: 0;
     top: 0;
   }
@@ -377,6 +382,7 @@ export default {
     border: 1px solid var(--rc-active-disabled-background);
     border-radius: 4px;
     margin: 6px 0;
+    cursor: default;
   }
   .tag-data {
     display: inline-flex;

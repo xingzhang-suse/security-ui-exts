@@ -12,7 +12,8 @@ import { WORKLOAD_KINDS } from '@shell/config/types';
 import RichTranslation from '@shell/components/RichTranslation.vue';
 import SubtleLink from '@shell/components/SubtleLink.vue';
 import { WORKLOAD_KIND_TO_TYPE_MAPPING } from '@shell/config/types';
-import { FilterArgs, PaginationFilterField, PaginationParamFilter } from '@shell/types/store/pagination.types';
+import { PaginationFilterField, PaginationParamFilter } from '@shell/types/store/pagination.types';
+import ImportDialog from '@runtime-enforcer/components/rancher-overwritten/ImportDialog.vue';
 
 const store = useStore();
 
@@ -237,10 +238,29 @@ async function fetchPageSecondaryResources({ force, page }: { force: any; page: 
     )
   );
 }
+
+function importYaml() {
+  store.dispatch('cluster/promptModal', {
+    component:      'ImportDialog',
+    modalWidth:     '960px',
+    height:         'auto',
+    styles:         'max-height: 90vh;',
+    componentProps: { cluster: store.state.cluster.currentCluster }
+  });
+}
 </script>
 
 <template>
   <div class="active-policies-page">
+    <RcButton
+      style="position: absolute; top: -64px; right: 0;"
+      variant="primary"
+      left-icon="upload"
+      size="large"
+      @click="importYaml()"
+    >
+      {{ t('runtimeEnforcer.activePolicies.actions.importYaml') }}
+    </RcButton>
 
     <Banner
       color="info"
@@ -377,6 +397,7 @@ async function fetchPageSecondaryResources({ force, page }: { force: any; page: 
 
 <style scoped lang="scss">
   .active-policies-page {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 24px;
