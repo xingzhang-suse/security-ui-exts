@@ -4,10 +4,10 @@ import { useRouter } from 'vue-router';
 import { RESOURCE } from '@runtime-enforcer/types';
 import InstallView from '@runtime-enforcer/components/InstallView';
 import { PRODUCT_NAME } from '@runtime-enforcer/types';
-import { onMounted } from 'vue';
+import { getCurrentInstance } from 'vue';
 
 const store = useStore();
-const router = useRouter();
+const router = getCurrentInstance()?.proxy?.$router;
 
 const hasSchema = computed(() => {
   const schema = store.getters['cluster/schemaFor'](RESOURCE.POLICY_PROPOSALS);
