@@ -88,8 +88,18 @@ export default class WorkloadPolicyProposal extends SteveModel {
           return labels?.[POLICY_LABEL_KEY] === this.metadata?.name && this.metadata?.namespace === workload.metadata?.namespace;
         });
 
+
         if (workload) {
           const cluster = this.$rootState.targetRoute.params.cluster;
+          const containers = workload.spec?.template?.spec?.containers
+            || workload.spec?.jobTemplate?.spec?.template?.spec?.containers
+            || [];
+
+          const image = containers.reduce((acc, container) => {
+            acc[container.name] = container.image;
+
+            return acc;
+          }, {});
 
           return {
             workloadName:     workload.metadata?.name || '',
@@ -108,6 +118,7 @@ export default class WorkloadPolicyProposal extends SteveModel {
           workloadName:     '',
           workloadType:     '',
           workloadLocation: '',
+          imageMap:     null,
         };
       }
     })();

@@ -223,6 +223,7 @@ runtimeEnforcer:
       changeMode: Change Mode
       export: Export
       delete: Delete
+      importYaml: Import
     columns:
       policy: Policy
       namespace: Namespace
@@ -330,6 +331,8 @@ runtimeEnforcer:
       confirm:
         single: 'Are you sure you want to export the <b>{name}</b> active policy? If so, please select the target mode below.'
         bulk: 'Are you sure you want to export the <b>selected active policies ({count})</b>? If so, please select the target mode below.'
+    import:
+      instruction: You can import multiple policies at the same time by separating their YAML using `---` as divider.
   activePolicy:
     label: Active Policy
     policyName: Policy Name

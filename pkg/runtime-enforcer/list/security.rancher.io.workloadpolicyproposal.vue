@@ -190,7 +190,7 @@ async function fetchSecondaryResources({ canPaginate }: { canPaginate: boolean }
     return;
   }
 
-  return await Promise.all(
+  return Promise.all(
     Object.values(WORKLOAD_KIND_TO_TYPE_MAPPING).map((workloadType) =>
       store.dispatch(`cluster/findAll`, { type: workloadType })
     )
