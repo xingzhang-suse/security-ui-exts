@@ -19,7 +19,7 @@ module.exports = () => {
   };
 
   // Create an override for __tests__ directories.
-  const kwChainWebpack = (config) => {
+  const ChainWebpack = (config) => {
     config.plugin('ignore-tests')
       .use(webpack.IgnorePlugin, [{ resourceRegExp: /[\\/]__tests__[\\/]/ }]);
   };
@@ -28,7 +28,7 @@ module.exports = () => {
     if (typeof vendorConfig.chainWebpack === 'function') {
       vendorConfig.chainWebpack(config);
     }
-    kwChainWebpack(config);
+    ChainWebpack(config);
   };
 
   // Merge our custom chainWebpack and configureWebpack with the vendor config.

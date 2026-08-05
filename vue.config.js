@@ -1,5 +1,6 @@
 const path = require('path');
 const config = require('@rancher/shell/vue.config');
+const webpack = require('webpack');
 
 module.exports = () => {
   const vendorConfig = config(__dirname, { excludes: [] });
@@ -25,6 +26,17 @@ module.exports = () => {
       webpackConfig.resolve.alias.set('@common', path.resolve(__dirname, 'pkg/common'));
     };
   }
+
+  const vueRouterOverride = new webpack.NormalModuleReplacementPlugin(/^vue-router$/, (resource) => {
+    resource.request = path.join(__dirname, 'vue-router.lib.js');
+  });
+
+  vendorConfig.configureWebpack = (webpackConfig) => {
+    if (!webpackConfig.plugins) {
+      webpackConfig.plugins = [];
+    }
+    webpackConfig.plugins.push(vueRouterOverride);
+  };
 
   return vendorConfig;
 };
