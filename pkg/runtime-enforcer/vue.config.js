@@ -16,6 +16,12 @@ module.exports = () => {
     config.resolve.alias['@runtime-enforcer'] = path.resolve(__dirname);
     // Add the @common alias so shared components in pkg/common are bundled with this extension.
     config.resolve.alias['@common'] = path.resolve(__dirname, '../common');
+
+    const vueRouterOverride = new webpack.NormalModuleReplacementPlugin(/^vue-router$/, (resource) => {
+      resource.request = path.join(__dirname, 'vue-router.lib.js');
+    });
+
+    config.plugins.push(vueRouterOverride);
   };
 
   // Create an override for __tests__ directories.
@@ -30,6 +36,8 @@ module.exports = () => {
     }
     kwChainWebpack(config);
   };
+
+
 
   // Merge our custom chainWebpack and configureWebpack with the vendor config.
   return Object.assign({}, vendorConfig, {
