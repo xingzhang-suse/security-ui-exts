@@ -1,13 +1,13 @@
 {
   "name": "security-ui-exts",
-  "version": "0.8.2-rc.7",
+  "version": "0.1.0-rc.9",
   "private": false,
   "engines": {
     "node": ">=24"
   },
   "dependencies": {
     "@rancher/components": "^0.3.0-alpha.4",
-    "@rancher/shell": "3.0.12",
+    "@rancher/shell": "3.0.12-rc.5",
     "file-saver": "^2.0.5",
     "papaparse": "^5.5.3",
     "vue": "^3.5.18",
