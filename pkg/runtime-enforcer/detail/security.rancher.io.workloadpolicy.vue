@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+// import { useRoute } from 'vue-router';
+import { getCurrentInstance } from 'vue';
 import { useStore } from 'vuex';
 import DetailPage from '@shell/components/Resource/Detail/Page.vue';
 import RcButton from '@components/RcButton/RcButton.vue';
@@ -24,7 +25,9 @@ const props = defineProps<{
 const policy = props.value;
 
 const store = useStore();
-const route = useRoute();
+// const route = useRoute();
+const instance = getCurrentInstance();
+const route = instance?.proxy?.$route as any;
 const i18n = useI18n(store);
 
 const canUpdate = computed(() => policy.canUpdate);
