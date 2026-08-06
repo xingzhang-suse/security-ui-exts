@@ -318,5 +318,6 @@ export default {
   .import-btn {
     padding-left: 16px;
     padding-right: 16px;
+    margin-left: 8px;
   }
 </style>

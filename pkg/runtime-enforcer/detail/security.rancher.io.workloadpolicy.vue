@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+// import { useRoute } from 'vue-router';
+import { getCurrentInstance } from 'vue';
 import { useStore } from 'vuex';
 import DetailPage from '@shell/components/Resource/Detail/Page.vue';
 import RcButton from '@components/RcButton/RcButton.vue';
@@ -24,7 +25,9 @@ const props = defineProps<{
 const policy = props.value;
 
 const store = useStore();
-const route = useRoute();
+// const route = useRoute();
+const instance = getCurrentInstance();
+const route = instance?.proxy?.$route as any;
 const i18n = useI18n(store);
 
 const canUpdate = computed(() => policy.canUpdate);
@@ -86,25 +89,25 @@ const metaProperties = computed<MetadataProperty[]>(() => [
     value: policy.workloadRef?.workloadType ?? '',
   },
   {
-    type:  'icon',
-    label: i18n.t('runtimeEnforcer.activePolicy.masthead.mode'),
-    value: modetext.value,
+    type:   'icon',
+    label:  i18n.t('runtimeEnforcer.activePolicy.masthead.mode'),
+    value:  modetext.value,
     imgSrc: modeIconImgSrc.value,
   },
   {
     type:  'text',
     label: i18n.t('runtimeEnforcer.activePolicy.masthead.violations'),
-    value: `${ policy.activeViolationCount }`,
+    value: `${ policy.activeViolationCount ?? 0 }`,
   },
   {
     type:  'text',
     label: i18n.t('runtimeEnforcer.activePolicy.masthead.occurrences'),
-    value: policy.violationCount,
+    value: policy.violationCount ?? 0,
   },
   {
     type:  'text',
     label: i18n.t('runtimeEnforcer.activePolicy.masthead.nodes'),
-    value: policy.status.totalNodes,
+    value: policy.status?.totalNodes ?? 0,
   },
   {
     type:  'text',
