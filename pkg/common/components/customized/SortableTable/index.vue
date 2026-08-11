@@ -954,6 +954,22 @@ export default {
       return val;
     },
 
+    expandAll() {
+      const expanded = {};
+
+      this.rows.forEach((row) => {
+        const key = row[this.keyField];
+
+        expanded[key] = true;
+      });
+
+      this.expanded = expanded;
+    },
+
+    collapseAll() {
+      this.expanded = {};
+    },
+
     setBulkActionOfInterest(action) {
       this.actionOfInterest = action;
     },
@@ -1231,7 +1247,11 @@ export default {
             </li>
           </ul>
           <slot name="watch-controls" />
-          <slot name="header-right" />
+          <slot
+            name="header-right"
+            :expand-all="expandAll"
+            :collapse-all="collapseAll"
+          />
           <AsyncButton
             v-if="!hideManualRefreshButton && isTooManyItemsToAutoUpdate"
             mode="manual-refresh"
@@ -1581,6 +1601,7 @@ export default {
           <slot
             v-if="row.showSubRow"
             name="sub-row"
+            class="sub-row"
             :full-colspan="fullColspan"
             :row="row.row"
             :sub-matches="subMatches"
@@ -1896,6 +1917,19 @@ export default {
     text-align: left;
   }
 
+  .sub-row {
+    padding: 8px;
+  }
+
+  .sub-table {
+    padding: 16px 32px;
+    .sortable-table {
+      border-radius: 0 !important;
+      border: 0 !important;
+      outline: 0;
+    }
+  }
+
   .sortable-table {
     border-collapse: collapse;
     min-width: 400px;
@@ -1903,6 +1937,17 @@ export default {
     outline: 1px solid var(--border);
     background: var(--sortable-table-bg);
     border-radius: 4px;
+    .sub-row {
+
+      .sortable-table td:last-child {
+          padding-right: 0;
+      }
+      tbody {
+        tr {
+          border-bottom: 0;
+        }
+      }
+    }
 
     &.overflow-x {
       overflow-x: visible;
@@ -1934,7 +1979,7 @@ export default {
         background-color: var(--sortable-table-row-bg);
 
         &.main-row.has-sub-row {
-          border-bottom: 0;
+          border-bottom: 1px solid var(--sortable-table-top-divider);
         }
         &.additional-sub-row.has-sub-row {
           border-bottom: 0;

@@ -332,9 +332,25 @@ async function fetchPageSecondaryResources({ force, page }: { force: any; page: 
           </div>
         </div>
       </template>
-      <template
-        #sub-row="{ row, fullColspan }"
-      >
+      <template #header-right="{ expandAll, collapseAll }">
+        <div class="table-top-right">
+          <div
+          role="button"
+          class="expand-collapse-btn"
+          @click="expandAll"
+        >
+          Expand All
+        </div> |
+        <div
+          role="button"
+          class="expand-collapse-btn"
+          @click="collapseAll"
+        >
+          Collapse All
+        </div>
+        </div>
+      </template>
+      <template #sub-row="{ row, fullColspan }">
         <tr class="sub-row">
           <td :colspan="fullColspan">
             <SortableTable
@@ -418,6 +434,21 @@ async function fetchPageSecondaryResources({ force, page }: { force: any; page: 
   }
 
   .selected-count {
+    font-weight: 400;
+  }
+
+  .table-top-right {
+    flex: auto;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 12px;
+  }
+
+  .expand-collapse-btn {
+    cursor: pointer;
+    color: var(--primary);
+    font-size: 14px;
     font-weight: 400;
   }
 
