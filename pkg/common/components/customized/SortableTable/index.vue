@@ -1952,6 +1952,11 @@ export default {
       .sortable-table td:last-child {
           padding-right: 0;
       }
+      thead {
+        th {
+          font-weight: 600;
+        }
+      }
       tbody {
         tr {
           border-bottom: 0;
@@ -2171,7 +2176,7 @@ export default {
     z-index: z-index('fixedTableHeader');
     background: transparent;
     display: grid;
-    grid-template-columns: [bulk] auto [middle] min-content [search] minmax(min-content, 200px);
+    grid-template-columns: [bulk] auto [middle] min-content [search] minmax(min-content, 400px);
     grid-column-gap: 10px;
 
     &.advanced-filtering {
