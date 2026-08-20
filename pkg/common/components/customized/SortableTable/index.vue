@@ -392,14 +392,6 @@ export default {
       type:    Boolean,
       default: false
     },
-
-    /**
-     * Enables toggling column visibility from the table options menu.
-     */
-    hidableColumns: {
-      type:    Boolean,
-      default: true
-    }
   },
 
   data() {
@@ -673,7 +665,7 @@ export default {
       }
 
       // Keep column visibility and advanced filter metadata in sync with header options.
-      if (this.hasAdvancedFiltering || this.hidableColumns) {
+      if (this.hasAdvancedFiltering) {
         const cols = this.handleColsVisibilityAndFiltering(out);
 
         return cols;
@@ -1372,7 +1364,6 @@ export default {
         :group="group"
         :group-options="advGroupOptions"
         :has-advanced-filtering="hasAdvancedFiltering"
-        :hidable-columns="hidableColumns"
         :adv-filter-hide-labels-as-cols="advFilterHideLabelsAsCols"
         :table-actions="tableActions"
         :table-cols-options="columnOptions"

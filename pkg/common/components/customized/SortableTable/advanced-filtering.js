@@ -56,7 +56,7 @@ export default {
   },
 
   mounted() {
-    if (this.hasAdvancedFiltering || this.hidableColumns) {
+    if (this.hasAdvancedFiltering) {
       // trigger to first populate the cols options for filters
       this.updateColsOptions();
     }

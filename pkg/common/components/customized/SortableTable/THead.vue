@@ -38,10 +38,6 @@ export default {
       type:     Boolean,
       required: false
     },
-    hidableColumns: {
-      type:    Boolean,
-      default: false,
-    },
     tableColsOptions: {
       type:    Array,
       default: () => [],
@@ -317,7 +313,7 @@ export default {
         </div>
       </th>
       <th
-        v-if="rowActions && (hasAdvancedFiltering || hidableColumns) && tableColsOptions.length"
+        v-if="rowActions && hasAdvancedFiltering && tableColsOptions.length"
         :width="rowActionsWidth"
       >
         <div
