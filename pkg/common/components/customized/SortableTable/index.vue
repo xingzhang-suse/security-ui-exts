@@ -391,6 +391,14 @@ export default {
     hideManualRefreshButton: {
       type:    Boolean,
       default: false
+    },
+
+    /**
+     * Enables toggling column visibility from the table options menu.
+     */
+    hidableColumns: {
+      type:    Boolean,
+      default: true
     }
   },
 
@@ -599,7 +607,7 @@ export default {
       let span = 0;
 
       for ( let i = 0 ; i < this.columns.length ; i++ ) {
-        if (!this.columns[i].hide) {
+        if (this.isColumnVisible(this.columns[i])) {
           span++;
         }
       }
@@ -664,8 +672,8 @@ export default {
         }
       }
 
-      // handle cols visibility and filtering if there is advanced filtering
-      if (this.hasAdvancedFiltering) {
+      // Keep column visibility and advanced filter metadata in sync with header options.
+      if (this.hasAdvancedFiltering || this.hidableColumns) {
         const cols = this.handleColsVisibilityAndFiltering(out);
 
         return cols;
@@ -904,6 +912,15 @@ export default {
       }
 
       return ucFirst(col.name);
+    },
+
+    isColumnVisible(col) {
+      if (!col || col.hide) {
+        return false;
+      }
+
+      // If the column has been hidden via the advanced filtering, it will have isColVisible set to false. The priority of isColVisible is higher than hide.
+      return col.isColVisible !== false;
     },
 
     valueFor(row, col, isLabel) {
@@ -1355,6 +1372,7 @@ export default {
         :group="group"
         :group-options="advGroupOptions"
         :has-advanced-filtering="hasAdvancedFiltering"
+        :hidable-columns="hidableColumns"
         :adv-filter-hide-labels-as-cols="advFilterHideLabelsAsCols"
         :table-actions="tableActions"
         :table-cols-options="columnOptions"
@@ -1508,7 +1526,7 @@ export default {
                     :rowKey="row.key"
                   >
                     <td
-                      v-show="!hasAdvancedFiltering || (hasAdvancedFiltering && col.col.isColVisible)"
+                      v-show="isColumnVisible(col.col)"
                       :key="col.col.name"
                       v-ui-context="col.col.name === 'state' ? { icon: 'icon-folder', hookable: true, value: row.row, tag: '__sortable-table-row', description: 'Row' } : undefined"
                       :data-title="col.col.label"

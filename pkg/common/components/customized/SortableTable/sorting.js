@@ -74,15 +74,16 @@ export default {
 
     // Try to find a reasonable default sort
     if ( !this._defaultSortBy ) {
-      const markedColumn = this.headers.find((x) => !!x.defaultSort);
       const nameColumn = this.headers.find( (x) => x.name === 'name');
+      const markedColumn = this.headers.find((x) => !!x.defaultSort);
 
-      if ( markedColumn ) {
-        this._defaultSortBy = markedColumn.name;
-        descending = markedColumn.defaultSortDescending || false;
-      } else if ( nameColumn ) {
+      // Take the nameColumn as highest priority, then the markedColumn, then the first column that isn't state, then id
+      if ( nameColumn ) {
         // Use the name column if there is one
         this._defaultSortBy = nameColumn.name;
+      } else if ( markedColumn ) {
+        this._defaultSortBy = markedColumn.name;
+        descending = markedColumn.defaultSortDescending || false;
       } else {
         // The first column that isn't state
         const first = this.headers.filter( (x) => x.name !== 'state' )[0];
