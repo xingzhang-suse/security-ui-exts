@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import Banner from '@components/Banner/Banner.vue';
-import PaginatedResourceTable from '@shell/components/PaginatedResourceTable';
+import PaginatedResourceTable from '@common/components/customized/PaginatedResourceTable.vue';
 import LabeledSelect from '@shell/components/form/LabeledSelect';
 import { DOCUMENTATION_URL, RESOURCE, type WorkloadPolicy } from '@runtime-enforcer/types';
 import { getActivePoliciesHeaders } from '@runtime-enforcer/config/policy-proposals-table';
@@ -339,6 +339,7 @@ function importYaml() {
     <PaginatedResourceTable
       table-key="runtime-enforcer-active-policies-figma-columns"
       :headers="headers"
+      default-sort-by="age"
       :schema="schema"
       :namespaced="true"
       :groupable="false"

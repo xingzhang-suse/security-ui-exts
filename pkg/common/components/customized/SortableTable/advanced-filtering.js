@@ -56,7 +56,7 @@ export default {
   },
 
   mounted() {
-    if (this.hasAdvancedFiltering) {
+    if (this.hasAdvancedFiltering || this.hidableColumns) {
       // trigger to first populate the cols options for filters
       this.updateColsOptions();
     }
@@ -105,6 +105,7 @@ export default {
           const index = allCols.findIndex((col) => col.name === advCol.name);
 
           if (index !== -1) {
+            allCols[index].hide = advCol.hide;
             allCols[index].isColVisible = advCol.isColVisible;
             allCols[index].isFilter = advCol.isFilter;
           } else {
@@ -132,7 +133,7 @@ export default {
         let sortVal = prop.sort;
         const valueProp = prop.valueProp || prop.value;
         let value = null;
-        let isColVisible = true;
+        let isColVisible = prop.hide ? false : prop.isColVisible !== false;
 
         if (prop.sort && valueProp) {
           if (typeof prop.sort === 'string') {
@@ -150,11 +151,12 @@ export default {
           value = null;
         }
 
-        // maintain current visibility of cols if they exist already
+        // Maintain current visibility only when header does not explicitly set visibility.
+        // If a header sets isColVisible=false, it will not be overridden, and the column will be rendered as hidden.
         if (this.columnOptions?.length) {
           const opt = this.columnOptions.find((colOpt) => colOpt.name === name && colOpt.label === label);
 
-          if (opt) {
+          if (opt && typeof prop.isColVisible === 'undefined') {
             isColVisible = opt.isColVisible;
           }
         }
@@ -163,6 +165,7 @@ export default {
           name,
           label,
           value,
+          hide:          prop.hide,
           isFilter,
           isTableOption: true,
           isColVisible
@@ -170,7 +173,7 @@ export default {
       });
 
       // add labels as table cols
-      if (this.rows.length) {
+      if (this.hasAdvancedFiltering && this.rows.length) {
         this.rows.forEach((row) => {
           if (row.metadata?.labels && Object.keys(row.metadata?.labels).length) {
             Object.keys(row.metadata?.labels).forEach((label) => {
@@ -262,10 +265,23 @@ export default {
 
     // cols visibility
     changeColVisibility(colData) {
-      const index = this.columnOptions.findIndex((col) => col.label === colData.label);
+      const index = this.columnOptions.findIndex((col) => col.name === colData.name || col.label === colData.label);
 
       if (index !== -1) {
         this.columnOptions[index].isColVisible = colData.value;
+
+        // If the active sort column is hidden, switch to the first visible sortable column.
+        if (this.sortBy === this.columnOptions[index].name && !colData.value) {
+          const nextSortableVisibleCol = (this.columns || []).find((col) => {
+            const option = this.columnOptions.find((opt) => opt.name === col.name);
+
+            return !!col.sort && option?.isColVisible;
+          });
+
+          if (nextSortableVisibleCol) {
+            this.changeSort(nextSortableVisibleCol.name, this.descending);
+          }
+        }
       }
     },
   },

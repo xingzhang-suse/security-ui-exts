@@ -38,6 +38,10 @@ export default {
       type:     Boolean,
       required: false
     },
+    hidableColumns: {
+      type:    Boolean,
+      default: false,
+    },
     tableColsOptions: {
       type:    Array,
       default: () => [],
@@ -141,6 +145,12 @@ export default {
     },
     hasColumnWithSubLabel() {
       return this.columns.some((col) => col.subLabel);
+    },
+
+    sortedTableColsOptions() {
+      return [...(this.tableColsOptions || [])]
+        .filter((col) => col.isTableOption && !col.hide)
+        .sort((a, b) => (a.label || '').localeCompare((b.label || ''), undefined, { sensitivity: 'base' }));
     }
   },
 
@@ -197,11 +207,20 @@ export default {
       this.tableColsOptionsVisibility = false;
     },
 
-    tableOptionsCheckbox(value, label) {
+    tableOptionsCheckbox(value, name, label) {
       this.$emit('col-visibility-change', {
+        name,
         label,
         value
       });
+    },
+
+    isHeaderColumnVisible(col) {
+      if (!col || col.hide) {
+        return false;
+      }
+
+      return col.isColVisible !== false;
     },
 
     tooltip(col) {
@@ -240,7 +259,7 @@ export default {
       />
       <th
         v-for="(col) in columns"
-        v-show="!hasAdvancedFiltering || (hasAdvancedFiltering && col.isColVisible)"
+        v-show="isHeaderColumnVisible(col)"
         :key="col.name"
         :align="col.align || 'left'"
         :width="col.width"
@@ -298,7 +317,7 @@ export default {
         </div>
       </th>
       <th
-        v-if="rowActions && hasAdvancedFiltering && tableColsOptions.length"
+        v-if="rowActions && (hasAdvancedFiltering || hidableColumns) && tableColsOptions.length"
         :width="rowActionsWidth"
       >
         <div
@@ -341,9 +360,8 @@ export default {
             </p>
             <ul>
               <li
-                v-for="(col, index) in tableColsOptions"
-                v-show="col.isTableOption"
-                :key="index"
+                v-for="(col, index) in sortedTableColsOptions"
+                :key="`${ col.name || col.label }-${ index }`"
                 :class="{ 'visible': !col.preventColToggle }"
               >
                 <Checkbox
@@ -351,7 +369,7 @@ export default {
                   v-model:value="col.isColVisible"
                   class="table-options-checkbox"
                   :label="col.label"
-                  @update:value="tableOptionsCheckbox($event, col.label)"
+                  @update:value="tableOptionsCheckbox($event, col.name, col.label)"
                 />
               </li>
             </ul>

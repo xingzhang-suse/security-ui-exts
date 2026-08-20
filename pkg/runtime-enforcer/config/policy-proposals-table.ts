@@ -194,5 +194,13 @@ export function getActivePoliciesHeaders() {
       sort:     'violationCount',
       width:    FIGMA_COLUMN_WIDTH.occurrences,
     },
+    {
+      name:     'age',
+      labelKey: 'runtimeEnforcer.activePolicies.columns.age',
+      value:    'metadata.creationTimestamp',
+      sort:     'metadata.creationTimestamp:desc',
+      width:    FIGMA_COLUMN_WIDTH.age,
+      hide:     true,
+    },
   ];
 }
