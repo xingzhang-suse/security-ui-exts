@@ -335,19 +335,19 @@ async function fetchPageSecondaryResources({ force, page }: { force: any; page: 
       <template #header-right="{ expandAll, collapseAll }">
         <div class="table-top-right">
           <div
-          role="button"
-          class="expand-collapse-btn"
-          @click="expandAll"
-        >
-          Expand All
-        </div> |
-        <div
-          role="button"
-          class="expand-collapse-btn"
-          @click="collapseAll"
-        >
-          Collapse All
-        </div>
+            role="button"
+            class="expand-collapse-btn"
+            @click="expandAll"
+          >
+            {{ t('runtimeEnforcer.policyProposals.actions.expandAll') }}
+          </div> |
+          <div
+            role="button"
+            class="expand-collapse-btn"
+            @click="collapseAll"
+          >
+            {{ t('runtimeEnforcer.policyProposals.actions.collapseAll') }}
+          </div>
         </div>
       </template>
       <template #sub-row="{ row, fullColspan }">

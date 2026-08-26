@@ -179,6 +179,7 @@ export default {
                 class="namespace-select"
                 v-model:value="selectedNamespace"
                 :options="namespaceOptions"
+                size="medium"
                 mode="edit"
               />
             </div>
