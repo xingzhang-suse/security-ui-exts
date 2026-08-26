@@ -19,7 +19,7 @@ const hasSchema = computed(() => {
     router.push({
       name:   `c-cluster-${ PRODUCT_NAME }-resource`,
       params: {
-        resource: RESOURCE.POLICY_PROPOSALS,
+        resource: RESOURCE.ACTIVE_POLICIES,
         cluster:  router.currentRoute.value.params.cluster,
         product:  PRODUCT_NAME
       }
