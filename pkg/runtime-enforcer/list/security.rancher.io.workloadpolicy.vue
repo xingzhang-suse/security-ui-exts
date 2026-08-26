@@ -13,7 +13,6 @@ import RichTranslation from '@shell/components/RichTranslation.vue';
 import SubtleLink from '@shell/components/SubtleLink.vue';
 import { WORKLOAD_KIND_TO_TYPE_MAPPING } from '@shell/config/types';
 import { PaginationFilterField, PaginationParamFilter } from '@shell/types/store/pagination.types';
-import ImportDialog from '@runtime-enforcer/components/rancher-overwritten/ImportDialog.vue';
 
 const store = useStore();
 
