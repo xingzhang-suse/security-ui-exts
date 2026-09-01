@@ -4,35 +4,36 @@ import RuntimeEnforcerResourceId from '../pages/c/_cluster/runtime-enforcer/_res
 import RuntimeEnforcerResourceNamespaceId from '../pages/c/_cluster/runtime-enforcer/_resource/_namespace/_id.vue';
 import RuntimeEnforcerResourceList from '../pages/c/_cluster/runtime-enforcer/_resource/index.vue';
 import { PRODUCT_NAME } from '../types/runtime-enforcer';
+import { PROD_NAME } from '../config/runtime-enforcer';
 
 const routes = [
   {
-    name:      `c-cluster-${ PRODUCT_NAME }-entry`,
-    path:      `/c/:cluster/${ PRODUCT_NAME }/entry`,
+    name:      `c-cluster-${PROD_NAME}-${ PRODUCT_NAME }-entry`,
+    path:      `/${PROD_NAME}/c/:cluster/${ PRODUCT_NAME }/entry`,
     component: Entry,
     meta:      { product: PRODUCT_NAME },
   },
   {
-    name:      `c-cluster-${ PRODUCT_NAME }-resource-create`,
-    path:      `/c/:cluster/${ PRODUCT_NAME }/:resource/create`,
+    name:      `c-cluster-${PROD_NAME}-${ PRODUCT_NAME }-resource-create`,
+    path:      `/${PROD_NAME}/c/:cluster/${ PRODUCT_NAME }/:resource/create`,
     component: RuntimeEnforcerResourceCreate,
     meta:      { product: PRODUCT_NAME },
   },
   {
-    name:      `c-cluster-${ PRODUCT_NAME }-resource-id`,
-    path:      `/c/:cluster/${ PRODUCT_NAME }/:resource/:id`,
+    name:      `c-cluster-${PROD_NAME}-${ PRODUCT_NAME }-resource-id`,
+    path:      `/${PROD_NAME}/c/:cluster/${ PRODUCT_NAME }/:resource/:id`,
     component: RuntimeEnforcerResourceId,
     meta:      { product: PRODUCT_NAME },
   },
   {
-    name:      `c-cluster-${ PRODUCT_NAME }-resource-namespace-id`,
-    path:      `/c/:cluster/${ PRODUCT_NAME }/:resource/:namespace/:id`,
+    name:      `c-cluster-${PROD_NAME}-${ PRODUCT_NAME }-resource-namespace-id`,
+    path:      `/${PROD_NAME}/c/:cluster/${ PRODUCT_NAME }/:resource/:namespace/:id`,
     component: RuntimeEnforcerResourceNamespaceId,
     meta:      { product: PRODUCT_NAME },
   },
   {
-    name:      `c-cluster-${ PRODUCT_NAME }-resource`,
-    path:      `/c/:cluster/${ PRODUCT_NAME }/:resource`,
+    name:      `c-cluster-${PROD_NAME}-${ PRODUCT_NAME }-resource`,
+    path:      `/${PROD_NAME}/c/:cluster/${ PRODUCT_NAME }/:resource`,
     component: RuntimeEnforcerResourceList,
     meta:      { product: PRODUCT_NAME },
   },

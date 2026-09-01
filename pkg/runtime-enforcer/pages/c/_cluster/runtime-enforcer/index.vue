@@ -5,7 +5,6 @@ import { getCurrentInstance } from 'vue';
 import { RESOURCE } from '@runtime-enforcer/types';
 import InstallView from '@runtime-enforcer/components/InstallView';
 import { PRODUCT_NAME } from '@runtime-enforcer/types';
-import { onMounted } from 'vue';
 
 const store = useStore();
 // const router = useRouter();
