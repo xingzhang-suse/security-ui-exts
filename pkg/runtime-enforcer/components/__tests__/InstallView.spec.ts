@@ -10,7 +10,7 @@ import InstallView from '../InstallView.vue';
 import { handleGrowl } from '../../utils/handle-growl';
 import { refreshCharts, getLatestVersion } from '../../utils/chart';
 import {
-  PRODUCT_NAME,
+  SUB_PROD_NAME,
   RUNTIME_ENFORCER,
   RUNTIME_ENFORCER_REPOS,
   CERT_MANAGER_CSI_DRIVER,
@@ -134,7 +134,7 @@ const createWrapper = async(options: WrapperOptions = {}) => {
       return Promise.resolve([]);
     }
 
-    if (action === `${ PRODUCT_NAME }/updateAppcoSecretName` || action === `${ PRODUCT_NAME }/updateNamespaceInputs`) {
+    if (action === `${ SUB_PROD_NAME }/updateAppcoSecretName` || action === `${ SUB_PROD_NAME }/updateNamespaceInputs`) {
       return Promise.resolve();
     }
 

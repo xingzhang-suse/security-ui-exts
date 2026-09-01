@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import DeletePolicyProposalsDialog from '../DeletePolicyProposalsDialog.vue';
 import { exceptionToErrorsArray } from '@shell/utils/error';
-import { PRODUCT_NAME } from '@runtime-enforcer/types/runtime-enforcer.ts';
+import { SUB_PROD_NAME } from '@runtime-enforcer/types/runtime-enforcer.ts';
 import { TIMESTAMP } from '@shell/config/labels-annotations';
 
 jest.mock('@shell/utils/error', () => ({
@@ -158,8 +158,8 @@ describe('DeletePolicyProposalsDialog', () => {
         message: 'runtimeEnforcer.policyProposal.deleteDialog.growl.bulk',
       });
       expect(push).toHaveBeenCalledWith({
-        name:   `c-cluster-${ PRODUCT_NAME }-resource`,
-        params: { cluster: 'local', product: PRODUCT_NAME },
+        name:   `c-cluster-${ SUB_PROD_NAME }-resource`,
+        params: { cluster: 'local', product: SUB_PROD_NAME },
       });
       expect(wrapper.emitted('close')).toBeTruthy();
     });

@@ -2,7 +2,7 @@
 import { Card } from '@components/Card';
 import { Banner } from '@components/Banner';
 import RcButton from '@components/RcButton/RcButton.vue';
-import { PRODUCT_NAME } from '@runtime-enforcer/types';
+import { SUB_PROD_NAME } from '@runtime-enforcer/types';
 import { exceptionToErrorsArray } from '@shell/utils/error';
 import { TIMESTAMP } from '@shell/config/labels-annotations';
 import { WORKLOAD_KIND_TO_TYPE_MAPPING } from '@shell/config/types';
@@ -123,10 +123,10 @@ export default {
         this.$store.dispatch('growl/success', { title: this.growlTitle, message: this.growlMessage });
 
         this.$router.push({
-          name:   `c-cluster-${ PRODUCT_NAME }-resource`,
+          name:   `c-cluster-${ SUB_PROD_NAME }-resource`,
           params: {
             cluster: this.$route.params.cluster,
-            product: PRODUCT_NAME
+            product: SUB_PROD_NAME
           }
         });
         this.close();

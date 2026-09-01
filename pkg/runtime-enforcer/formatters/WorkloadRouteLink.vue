@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { PRODUCT_NAME } from '@runtime-enforcer/types';
+import { SUB_PROD_NAME } from '@runtime-enforcer/types';
 import { WORKLOAD_KIND_TO_TYPE_MAPPING } from '@shell/config/types';
 export default {
   name:  'WorkloadRouteLink',
@@ -34,7 +34,7 @@ export default {
     workloadDetailLink() {
       const cluster = this.$route.params.cluster;
 
-      return `/c/${ cluster }/${ PRODUCT_NAME }/${ this.row?.ownerWorkloadSteveType || WORKLOAD_KIND_TO_TYPE_MAPPING[this.row?.workloadRef.workloadType || ''] || '' }/${ this.row?.metadata?.namespace || '' }/${ this.workloadValue }`;
+      return `/c/${ cluster }/explorer/${ this.row?.ownerWorkloadSteveType || WORKLOAD_KIND_TO_TYPE_MAPPING[this.row?.workloadRef.workloadType || ''] || '' }/${ this.row?.metadata?.namespace || '' }/${ this.workloadValue }`;
     }
   }
 };

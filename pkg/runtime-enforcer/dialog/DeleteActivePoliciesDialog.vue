@@ -2,7 +2,7 @@
 import { Card } from '@components/Card';
 import { Banner } from '@components/Banner';
 import RcButton from '@components/RcButton/RcButton.vue';
-import { PRODUCT_NAME } from '@runtime-enforcer/types/runtime-enforcer.ts';
+import { SUB_PROD_NAME } from '@runtime-enforcer/types/runtime-enforcer.ts';
 import { exceptionToErrorsArray } from '@shell/utils/error';
 import { TIMESTAMP } from '@shell/config/labels-annotations';
 import RadioButton from '@components/Form/Radio/RadioButton.vue';
@@ -214,10 +214,10 @@ export default {
         this.deleteInProgress = false;
         this.$store.dispatch('growl/success', { title: this.growlTitle, message: this.growlMessage });
         this.$router.push({
-          name:   `c-cluster-${ PRODUCT_NAME }-resource`,
+          name:   `c-cluster-${ SUB_PROD_NAME }-resource`,
           params: {
             cluster: this.$route.params.cluster,
-            product: PRODUCT_NAME
+            product: SUB_PROD_NAME
           }
         });
         this.close();

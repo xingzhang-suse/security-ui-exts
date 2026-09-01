@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { RESOURCE, PRODUCT_NAME } from '@runtime-enforcer/types';
+import { RESOURCE, PROD_NAME } from '@runtime-enforcer/types';
 export default {
   name:  'ActivePoliciesRouteLink',
   props: {
@@ -37,7 +37,7 @@ export default {
         name:   'c-cluster-product-resource-namespace-id',
         params: {
           cluster:   this.$route.params.cluster,
-          product:   PRODUCT_NAME,
+          product:   PROD_NAME,
           resource:  RESOURCE.ACTIVE_POLICIES,
           namespace: this.row.metadata.namespace,
           id:        this.activePoliciesValue,

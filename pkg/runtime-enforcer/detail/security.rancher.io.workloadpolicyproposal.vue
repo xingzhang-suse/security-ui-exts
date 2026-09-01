@@ -10,6 +10,7 @@ import SortableTable from '@shell/components/SortableTable';
 import RcButton from '@components/RcButton/RcButton.vue';
 import { useI18n } from '@shell/composables/useI18n';
 import { NAMESPACE } from '@shell/config/types';
+import { PROD_NAME, SUB_PROD_NAME } from '@runtime-enforcer/types';
 import RancherMeta from '@common/components/RancherMeta.vue';
 import { MetadataProperty } from '@common/types';
 
@@ -31,6 +32,13 @@ const defaultTitleBarProps = useDefaultTitleBarProps(proposal);
 // no upstream getter to suppress it), so strip it back out here.
 const titleBarProps = computed(() => {
   const { badge, ...rest } = defaultTitleBarProps.value;
+
+  if (rest.resourceTo && typeof rest.resourceTo === 'object' && !Array.isArray(rest.resourceTo)) {
+    const resourceTo = rest.resourceTo as any;
+
+    resourceTo.name = `c-cluster-${ PROD_NAME }-${ SUB_PROD_NAME }-resource`;
+    rest.resourceTo = resourceTo;
+  }
 
   return rest;
 });

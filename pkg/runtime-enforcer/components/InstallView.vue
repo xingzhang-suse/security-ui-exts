@@ -18,7 +18,7 @@ import {
 import {
   CHART_REGISTRY_URL,
   DOCKER_CONFIG_JSON_TYPE,
-  PRODUCT_NAME,
+  SUB_PROD_NAME,
   RUNTIME_ENFORCER,
   RUNTIME_ENFORCER_REPOS,
   CERT_MANAGER_CSI_DRIVER,
@@ -194,7 +194,7 @@ async function onAuthSecretChanged(authSecret) {
   const appcoSecretName = getAuthSecretName(authSecret);
 
   try {
-    await store.dispatch(`${ PRODUCT_NAME }/updateAppcoSecretName`, appcoSecretName);
+    await store.dispatch(`${ SUB_PROD_NAME }/updateAppcoSecretName`, appcoSecretName);
   } catch (e) {
     handleGrowl({
       error: e,
@@ -205,7 +205,7 @@ async function onAuthSecretChanged(authSecret) {
 
 async function onNamespaceInputsChanged() {
   try {
-    await store.dispatch(`${ PRODUCT_NAME }/updateNamespaceInputs`, {
+    await store.dispatch(`${ SUB_PROD_NAME }/updateNamespaceInputs`, {
       certManagerNamespace:     certManagerNamespace.value,
       csiDriverNamespace:       csiDriverNamespace.value,
       runtimeEnforcerNamespace: runtimeEnforcerNamespace.value,

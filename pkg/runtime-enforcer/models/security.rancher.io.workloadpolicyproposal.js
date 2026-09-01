@@ -1,6 +1,6 @@
 import SteveModel from '@shell/plugins/steve/steve-class';
 import { WORKLOAD_KIND_TO_TYPE_MAPPING  } from '@shell/config/types';
-import { PRODUCT_NAME, RESOURCE, WORKLOAD_POLICY_KIND } from '../types/runtime-enforcer';
+import { SUB_PROD_NAME, RESOURCE, WORKLOAD_POLICY_KIND } from '../types/runtime-enforcer';
 import { PROMOTE_LABEL_KEY } from '@runtime-enforcer/types';
 
 export default class WorkloadPolicyProposal extends SteveModel {
@@ -59,7 +59,7 @@ export default class WorkloadPolicyProposal extends SteveModel {
 
   get listLocation() {
     return {
-      name:   `c-cluster-${ PRODUCT_NAME }-resource`,
+      name:   `c-cluster-${ SUB_PROD_NAME }-resource`,
       params: { cluster: this.$rootGetters['clusterId'], resource: RESOURCE.POLICY_PROPOSALS },
     };
   }

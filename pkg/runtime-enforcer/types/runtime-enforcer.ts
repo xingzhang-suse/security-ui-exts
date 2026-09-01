@@ -1,4 +1,5 @@
-export const PRODUCT_NAME = 'runtimeEnforcer';
+export const PROD_NAME = 'security';
+export const SUB_PROD_NAME = 'runtimeEnforcer';
 
 export const CHART_REGISTRY_URL = 'oci://dp.apps.rancher.io/charts';
 export const DOCKER_CONFIG_JSON_TYPE = '.dockerconfigjson';

@@ -11,7 +11,7 @@ import RancherMeta from '@common/components/RancherMeta.vue';
 import { MetadataProperty } from '@common/types';
 import ResourceTabs from '@shell/components/form/ResourceTabs';
 import Tab from '@shell/components/Tabbed/Tab';
-import { PRODUCT_NAME, RESOURCE } from '@runtime-enforcer/types';
+import { PROD_NAME, RESOURCE } from '@runtime-enforcer/types';
 import ActionMenu from '@shell/components/ActionMenuShell.vue';
 import StatusBadge from '@runtime-enforcer/components/common/StatusBadge.vue';
 import ExpandableDescription from '@common/components/ExpandableDescription.vue';
@@ -137,7 +137,7 @@ const metaProperties = computed<MetadataProperty[]>(() => [
           >
             <RouterLink
                 class="resource-link"
-                :to="`/c/${$route.params.cluster}/${ PRODUCT_NAME }/${RESOURCE.ACTIVE_POLICIES}`"
+                :to="`/c/${$route.params.cluster}/${ PROD_NAME }/${RESOURCE.ACTIVE_POLICIES}`"
             >
               {{ t('runtimeEnforcer.activePolicy.label') }}:
             </RouterLink>

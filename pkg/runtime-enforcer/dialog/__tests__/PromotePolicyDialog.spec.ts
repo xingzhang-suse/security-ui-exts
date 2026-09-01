@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import PromotePolicyDialog from '../PromotePolicyDialog.vue';
-import { PRODUCT_NAME, POLICY_MODE, APPLY_MODE } from '@runtime-enforcer/types/runtime-enforcer.ts';
+import { SUB_PROD_NAME, POLICY_MODE, APPLY_MODE } from '@runtime-enforcer/types/runtime-enforcer.ts';
 
 jest.mock('@shell/components/Resource/Detail/CopyToClipboard.vue', () => ({
   __esModule: true,
@@ -172,8 +172,8 @@ describe('PromotePolicyDialog', () => {
         message: (wrapper.vm as any).growlMessage,
       });
       expect(push).toHaveBeenCalledWith({
-        name:   `c-cluster-${ PRODUCT_NAME }-resource`,
-        params: { cluster: 'local', product: PRODUCT_NAME },
+        name:   `c-cluster-${ SUB_PROD_NAME }-resource`,
+        params: { cluster: 'local', product: SUB_PROD_NAME },
       });
       expect((wrapper.vm as any).promoteInProgress).toBe(false);
       expect(wrapper.emitted('close')).toHaveLength(1);

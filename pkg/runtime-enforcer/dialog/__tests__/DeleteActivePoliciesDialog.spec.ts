@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import DeleteActivePoliciesDialog from '../DeleteActivePoliciesDialog.vue';
 import { exceptionToErrorsArray } from '@shell/utils/error';
-import { PRODUCT_NAME } from '@runtime-enforcer/types/runtime-enforcer.ts';
+import { SUB_PROD_NAME } from '@runtime-enforcer/types/runtime-enforcer.ts';
 
 jest.mock('@shell/components/Resource/Detail/CopyToClipboard.vue', () => ({
   __esModule: true,
@@ -297,8 +297,8 @@ describe('DeleteActivePoliciesDialog', () => {
         message: 'runtimeEnforcer.activePolicies.deleteDialog.growl.delete.bulk:{"count":2}',
       });
       expect(push).toHaveBeenCalledWith({
-        name:   `c-cluster-${ PRODUCT_NAME }-resource`,
-        params: { cluster: 'local', product: PRODUCT_NAME },
+        name:   `c-cluster-${ SUB_PROD_NAME }-resource`,
+        params: { cluster: 'local', product: SUB_PROD_NAME },
       });
       expect((wrapper.vm as any).deleteInProgress).toBe(false);
       expect(wrapper.emitted('close')).toHaveLength(1);

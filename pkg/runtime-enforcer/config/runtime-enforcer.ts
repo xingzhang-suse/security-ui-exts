@@ -1,14 +1,17 @@
-import { PRODUCT_NAME } from '../types/runtime-enforcer';
+import { SUB_PROD_NAME } from '../types/runtime-enforcer';
 import { RESOURCE } from '../types/runtime-enforcer';
+export const PROD_NAME = 'security';
+export const subProduct = 'policy';
+const GROUP_NAME = 'Runtime Enforcer';
 
 export function init($plugin: any, store: any) {
-  const { configureType } = $plugin.DSL(store, PRODUCT_NAME);
+  const { configureType } = $plugin.DSL(store, PROD_NAME);
 
   const {
     product,
     virtualType,
     basicType
-  } = $plugin.DSL(store, PRODUCT_NAME);
+  } = $plugin.DSL(store, PROD_NAME);
 
   // registering a top-level product
   product({
@@ -20,12 +23,12 @@ export function init($plugin: any, store: any) {
   // => => => creating a custom page
   virtualType({
     label:      'Overview',
-    name:       'entry',
+    name:       `${subProduct}-entry`,
     namespaced: false,
     route:      {
-      name:   `c-cluster-${ PRODUCT_NAME }-entry`,
-      params: { product: PRODUCT_NAME },
-      meta:   { pkg: PRODUCT_NAME, product: PRODUCT_NAME }
+      name:   `c-cluster-${PROD_NAME}-${ SUB_PROD_NAME }-entry`,
+      params: { product: SUB_PROD_NAME },
+      meta:   { pkg: SUB_PROD_NAME, product: SUB_PROD_NAME }
     },
     overview: true
   });
@@ -40,8 +43,8 @@ export function init($plugin: any, store: any) {
   });
 
   basicType([
-    'entry',
+    // `${subProduct}-entry`,
     RESOURCE.POLICY_PROPOSALS,
     RESOURCE.ACTIVE_POLICIES,
-  ]);
+  ], GROUP_NAME);
 }

@@ -9,7 +9,7 @@ import SubtleLink from '@shell/components/SubtleLink.vue';
 import WorkloadTag from '@runtime-enforcer/components/common/WorkloadTag.vue';
 import { _EDIT } from '@shell/config/query-params';
 import {
-  PRODUCT_NAME, POLICY_MODE, APPLY_MODE, WORKLOAD_PREFIX, DOCUMENTATION_URL
+  SUB_PROD_NAME, POLICY_MODE, APPLY_MODE, WORKLOAD_PREFIX, DOCUMENTATION_URL
 } from '../types/runtime-enforcer';
 import { applyPromoteLabel, applyWorkloadPolicyLabel, snapshotProposal } from '../utils/promote';
 
@@ -140,8 +140,8 @@ export default {
 
       if (!this.isBulk) {
         this.$router.push({
-          name:   `c-cluster-${ PRODUCT_NAME }-resource`,
-          params: { cluster: this.$route.params.cluster, product: PRODUCT_NAME },
+          name:   `c-cluster-${ SUB_PROD_NAME }-resource`,
+          params: { cluster: this.$route.params.cluster, product: SUB_PROD_NAME },
         });
       }
 

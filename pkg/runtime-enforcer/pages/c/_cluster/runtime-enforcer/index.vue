@@ -4,8 +4,7 @@ import { computed, useStore } from '@runtime-enforcer/utils/vue-imports';
 import { getCurrentInstance } from 'vue';
 import { RESOURCE } from '@runtime-enforcer/types';
 import InstallView from '@runtime-enforcer/components/InstallView';
-import { PRODUCT_NAME } from '@runtime-enforcer/types';
-import { onMounted } from 'vue';
+import { SUB_PROD_NAME } from '@runtime-enforcer/types';
 
 const store = useStore();
 // const router = useRouter();
@@ -17,11 +16,11 @@ const hasSchema = computed(() => {
 
   if (schema) {
     router.push({
-      name:   `c-cluster-${ PRODUCT_NAME }-resource`,
+      name:   `c-cluster-${ SUB_PROD_NAME }-resource`,
       params: {
         resource: RESOURCE.ACTIVE_POLICIES,
         cluster:  router.currentRoute.value.params.cluster,
-        product:  PRODUCT_NAME
+        product:  SUB_PROD_NAME
       }
     });
   }
