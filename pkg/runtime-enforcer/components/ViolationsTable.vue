@@ -18,26 +18,26 @@ const { t } = useI18n(store);
 
 const selectedRows = ref<any[]>([]);
 
-const rows = computed(() => {
-  const violations = props.violations || [];
+const rows = ref<any[]>([]);
 
-  return violations.map((violation, index) => {
-    const containerName = violation.containerName || '';
-    const executablePath = violation.executablePath || '';
+const violations = props.violations || [];
 
-    return {
-      id:                     `${ containerName }-${ executablePath }-${ index }`,
-      executable:             executablePath || '-',
-      occurrences:            violation.occurrences ?? '-',
-      container:              containerName || '-',
-      image:                  props.imageMap?.[containerName] || '',
-      node:                   violation.nodeName || '-',
-      lastObservedTimestamp:  violation.lastObservedTimestamp,
-      firstObservedTimestamp: violation.firstObservedTimestamp,
-      containerName,
-      executablePath,
-    };
-  });
+rows.value = violations.map((violation, index) => {
+  const containerName = violation.containerName || '';
+  const executablePath = violation.executablePath || '';
+
+  return {
+    id:                     `${ containerName }-${ executablePath }-${ index }`,
+    executable:             executablePath || '-',
+    occurrences:            violation.occurrences ?? '-',
+    container:              containerName || '-',
+    image:                  props.imageMap?.[containerName] || '',
+    node:                   violation.nodeName || '-',
+    lastObservedTimestamp:  violation.lastObservedTimestamp,
+    firstObservedTimestamp: violation.firstObservedTimestamp,
+    containerName,
+    executablePath,
+  };
 });
 
 const headers = computed(() => [
