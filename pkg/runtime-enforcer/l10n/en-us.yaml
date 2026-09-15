@@ -443,4 +443,11 @@ runtimeEnforcer:
         occurrences: occurrences
         providedBy: Provided by
         runtimeEnforcer: Runtime Enforcer
-
+  workloadViolations:
+    tab:
+      title: Runtime Violations
+    banner:
+      text: The <policy/> runtime policy is active in <mode/> mode. Want to learn more about the Runtime Enforcer extension? Read our <documentation>documentation</documentation>.
+    actions:
+      reviewPolicyRules: Review Policy Rules
+    unprotected: This workload does not have an active runtime security policy assigned.
