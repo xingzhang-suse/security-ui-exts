@@ -1,5 +1,12 @@
 {
   "files.exclude": {
+    "**/node_modules": false
+  },
+  "search.exclude": {
+    "**/node_modules": false
+  }
+}{
+  "files.exclude": {
     ".ackrc": true,
     ".dockerignore": true,
     ".drone.yml": true,
