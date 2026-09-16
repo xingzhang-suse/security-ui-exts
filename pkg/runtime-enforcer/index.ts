@@ -1,4 +1,5 @@
 import { importTypes } from '@rancher/auto-import';
+import { registerCommonL10n } from '@common/config';
 import { IPlugin, TableColumnLocation } from '@shell/core/types';
 import { WORKLOAD_TYPES } from '@shell/config/types';
 import runtimeEnforcer from './routes/runtime-enforcer';
@@ -8,6 +9,7 @@ import { getRuntimeSecurityValue } from './utils/workload-policy';
 export default function(plugin: IPlugin): void {
   // Auto-import model, detail, edit from the folders
   importTypes(plugin);
+  registerCommonL10n(plugin);
 
   // Provide plugin metadata from package.json
   plugin.metadata = require('./package.json');

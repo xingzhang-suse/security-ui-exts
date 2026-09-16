@@ -44,7 +44,7 @@ export default {
     expand() {
       this.isExpanded = true;
     }
-  }
+  },
 };
 </script>
 
@@ -64,7 +64,7 @@ export default {
         class="read-more-btn"
         @click="expand"
     >
-      {{ t('imageScanner.general.readMore') }}
+      {{ t('common.general.readMore') }}
     </span>
   </div>
 </template>
