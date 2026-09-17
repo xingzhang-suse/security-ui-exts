@@ -130,7 +130,6 @@ describe('WorkloadRuntimeViolations.vue', () => {
     expect(wrapper.find('.workload-runtime-violations').exists()).toBe(true);
     expect(wrapper.find('.unprotected-banner').exists()).toBe(false);
     expect(wrapper.find('.policy-info-banner').exists()).toBe(true);
-    expect(wrapper.find('.review-policy-btn').exists()).toBe(true);
   });
 
   it('renders unprotected message when workload has no matching policy', () => {
@@ -219,27 +218,6 @@ describe('WorkloadRuntimeViolations.vue', () => {
     expect(table.props('paging')).toBe(true);
     expect(table.props('defaultSortBy')).toBe('occurrences');
     expect(table.props('defaultSortOrder')).toBe('desc');
-  });
-
-  it('resolves policy rules detail route and opens in a new tab when review button is clicked', () => {
-    const windowOpenSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
-    const wrapper = createWrapper();
-
-    expect(wrapper.vm.policyDetailLocation).toEqual({
-      name:   'c-cluster-product-resource-namespace-id',
-      params: {
-        cluster:   'local',
-        product:   PRODUCT_NAME,
-        resource:  RESOURCE.ACTIVE_POLICIES,
-        namespace: 'cattle-system',
-        id:        'strict-db',
-      },
-    });
-
-    wrapper.vm.openPolicyRulesInNewTab();
-    expect(windowOpenSpy).toHaveBeenCalledWith('/c/local/runtimeEnforcer/active-policy/strict-db', '_blank');
-
-    windowOpenSpy.mockRestore();
   });
 
   it('dispatches cluster/findAll during fetch when store has no active policies', async() => {

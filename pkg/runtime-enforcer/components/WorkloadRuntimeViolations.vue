@@ -1,38 +1,26 @@
 <template>
   <div v-if="boundPolicy" class="workload-runtime-violations">
-    <div class="banner-actions-row mb-20">
+    <div class="banner-row mb-24">
       <Banner color="info" class="policy-info-banner">
         <span class="banner-text">
-          <RichTranslation :k="'runtimeEnforcer.workloadViolations.banner.text'">
-            <template #policy>
-              <strong>{{ policyName }}</strong>
-            </template>
-            <template #mode>
-              <strong>{{ modeLabel }}</strong>
-            </template>
-            <template #documentation="{ content }">
-              <SubtleLink
-                  :href="DOCUMENTATION_URL"
-                  target="_blank"
-                  :open-in-new-tab-label="t('generic.opensInNewTab')"
-                  class="doc-link"
-              >
-                {{ content }}
-              </SubtleLink>
-            </template>
-          </RichTranslation>
+          <span>{{ t('runtimeEnforcer.workloadViolations.banner.prefix') }} </span>
+          <router-link :to="policyDetailLocation" class="policy-link">
+            {{ policyName }}
+          </router-link>
+          <span> {{ t('runtimeEnforcer.workloadViolations.banner.middle') }} </span>
+          <strong class="mode-text">{{ modeLabel }}</strong>
+          <span> {{ t('runtimeEnforcer.workloadViolations.banner.suffix') }} </span>
+          <SubtleLink
+              :href="DOCUMENTATION_URL"
+              target="_blank"
+              :open-in-new-tab-label="t('generic.opensInNewTab')"
+              class="doc-link"
+          >
+            {{ t('runtimeEnforcer.workloadViolations.banner.documentation') }}
+          </SubtleLink>
+          <span>.</span>
         </span>
       </Banner>
-
-      <RcButton
-          variant="primary"
-          size="large"
-          left-icon="external-link"
-          class="review-policy-btn"
-          @click="openPolicyRulesInNewTab"
-      >
-        {{ t('runtimeEnforcer.workloadViolations.actions.reviewPolicyRules') }}
-      </RcButton>
     </div>
 
     <SortableTable
@@ -91,7 +79,6 @@
 
 <script>
 import Banner from '@components/Banner/Banner.vue';
-import RcButton from '@components/RcButton/RcButton.vue';
 import RichTranslation from '@shell/components/RichTranslation.vue';
 import SubtleLink from '@shell/components/SubtleLink.vue';
 import SortableTable from '@shell/components/SortableTable';
@@ -103,7 +90,6 @@ export default {
   name: 'WorkloadRuntimeViolations',
   components: {
     Banner,
-    RcButton,
     RichTranslation,
     SubtleLink,
     SortableTable,
@@ -260,14 +246,6 @@ export default {
       };
     },
   },
-  methods: {
-    openPolicyRulesInNewTab() {
-      const resolved = this.$router.resolve(this.policyDetailLocation);
-      if (resolved?.href) {
-        window.open(resolved.href, '_blank');
-      }
-    },
-  },
 };
 </script>
 
@@ -278,21 +256,33 @@ export default {
   width: 100%;
 }
 
-.banner-actions-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+.banner-row {
   width: 100%;
 
-  .policy-info-banner {
-    flex: 1;
+  :deep(.banner.info) {
     margin: 0;
+    display: flex;
+    align-items: center;
+  }
 
-    .banner-text {
-      display: inline;
-      font-size: 14px;
-      line-height: 21px;
+  .banner-text {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--body-text);
+
+    .policy-link {
+      font-weight: 600;
+      color: var(--body-text);
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--link);
+      }
+    }
+
+    .mode-text {
+      font-weight: 600;
     }
 
     .doc-link {
@@ -304,12 +294,10 @@ export default {
       }
     }
   }
+}
 
-  .review-policy-btn {
-    flex-shrink: 0;
-    white-space: nowrap;
-    align-self: center;
-  }
+.mb-24 {
+  margin-bottom: 24px;
 }
 
 .executable-pill {
