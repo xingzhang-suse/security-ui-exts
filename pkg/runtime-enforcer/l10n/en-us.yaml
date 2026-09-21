@@ -447,8 +447,5 @@ runtimeEnforcer:
     tab:
       title: Runtime Violations
     banner:
-      prefix: The
-      middle: runtime policy is active in
-      suffix: mode. Want to learn more about the Runtime Enforcer extension? Read our
-      documentation: documentation
+      text: The <policyLink></policyLink> runtime policy is active in <mode></mode> mode. Want to learn more about the Runtime Enforcer extension? Read our <documentation>documentation</documentation>.
     unprotected: This workload does not have an active runtime security policy assigned.

@@ -3,22 +3,28 @@
     <div class="banner-row mb-24">
       <Banner color="info" class="policy-info-banner">
         <span class="banner-text">
-          <span>{{ t('runtimeEnforcer.workloadViolations.banner.prefix') }} </span>
-          <router-link :to="policyDetailLocation" class="policy-link">
-            {{ policyName }}
-          </router-link>
-          <span> {{ t('runtimeEnforcer.workloadViolations.banner.middle') }} </span>
-          <strong class="mode-text">{{ modeLabel }}</strong>
-          <span> {{ t('runtimeEnforcer.workloadViolations.banner.suffix') }} </span>
-          <SubtleLink
-              :href="DOCUMENTATION_URL"
-              target="_blank"
-              :open-in-new-tab-label="t('generic.opensInNewTab')"
-              class="doc-link"
-          >
-            {{ t('runtimeEnforcer.workloadViolations.banner.documentation') }}
-          </SubtleLink>
-          <span>.</span>
+          <RichTranslation k="runtimeEnforcer.workloadViolations.banner.text">
+            <template #policyLink>
+              <router-link :to="policyDetailLocation" class="policy-link">
+                {{ policyName }}
+              </router-link>
+            </template>
+
+            <template #mode>
+              <strong class="mode-text">{{ modeLabel }}</strong>
+            </template>
+
+            <template #documentation="{ content }">
+              <SubtleLink
+                  :href="DOCUMENTATION_URL"
+                  target="_blank"
+                  :open-in-new-tab-label="t('generic.opensInNewTab')"
+                  class="doc-link"
+              >
+                {{ content }}
+              </SubtleLink>
+            </template>
+          </RichTranslation>
         </span>
       </Banner>
     </div>

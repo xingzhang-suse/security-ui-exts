@@ -9,15 +9,9 @@ jest.mock('@components/Banner/Banner.vue', () => ({
   props:    ['color'],
 }));
 
-jest.mock('@components/RcButton/RcButton.vue', () => ({
-  name:     'RcButton',
-  template: '<button class="rc-button-stub" @click="$emit(\'click\')"><slot /></button>',
-  props:    ['variant', 'size', 'left-icon'],
-}));
-
 jest.mock('@shell/components/RichTranslation.vue', () => ({
   name:     'RichTranslation',
-  template: '<span class="rich-translation-stub"><slot name="policy" /><slot name="mode" /><slot name="documentation" :content="\'documentation\'" /></span>',
+  template: '<span class="rich-translation-stub"><slot name="policyLink" /><slot name="mode" /><slot name="documentation" :content="\'documentation\'" /></span>',
   props:    ['k'],
 }));
 
@@ -130,6 +124,7 @@ describe('WorkloadRuntimeViolations.vue', () => {
     expect(wrapper.find('.workload-runtime-violations').exists()).toBe(true);
     expect(wrapper.find('.unprotected-banner').exists()).toBe(false);
     expect(wrapper.find('.policy-info-banner').exists()).toBe(true);
+    expect(wrapper.find('.review-policy-btn').exists()).toBe(false);
   });
 
   it('renders unprotected message when workload has no matching policy', () => {
@@ -220,6 +215,21 @@ describe('WorkloadRuntimeViolations.vue', () => {
     expect(table.props('defaultSortOrder')).toBe('desc');
   });
 
+  it('resolves policy rules detail route location correctly', () => {
+    const wrapper = createWrapper();
+
+    expect(wrapper.vm.policyDetailLocation).toEqual({
+      name:   'c-cluster-product-resource-namespace-id',
+      params: {
+        cluster:   'local',
+        product:   PRODUCT_NAME,
+        resource:  RESOURCE.ACTIVE_POLICIES,
+        namespace: 'cattle-system',
+        id:        'strict-db',
+      },
+    });
+  });
+
   it('dispatches cluster/findAll during fetch when store has no active policies', async() => {
     const emptyStore = createStore({
       getters: {
@@ -239,7 +249,7 @@ describe('WorkloadRuntimeViolations.vue', () => {
           $route: { params: { cluster: 'local' } },
           t:      (key: string) => key,
         },
-        stubs: { SortableTable: true, Banner: true, RcButton: true, RichTranslation: true },
+        stubs: { SortableTable: true, Banner: true, RichTranslation: true, SubtleLink: true },
       },
     });
 

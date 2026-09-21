@@ -27,7 +27,7 @@
 
     <div
         class="hover-overlay"
-        :class="{ 'show-top': showOnTop }"
+        :class="{ 'show-top': showOnTop, 'align-right': showOnRight }"
     >
       <div class="popup-container">
         <div class="popover-title">
@@ -112,6 +112,7 @@ export default {
       protectIconSrc: null,
       monitorIconSrc: null,
       showOnTop:      false,
+      showOnRight:    false,
     };
   },
   created() {
@@ -227,17 +228,31 @@ export default {
       };
     },
     workloadViolationsLocation() {
-      const resourceType = this.row?.type || this.row?.schema?.id || 'apps.deployment';
+      if (this.row?.detailLocation) {
+        return {
+          ...this.row.detailLocation,
+          hash: '#runtime-violations',
+        };
+      }
+
+      const resourceType = this.row?.type || this.row?.schema?.id;
+
+      if (resourceType) {
+        return {
+          name:   'c-cluster-product-resource-namespace-id',
+          params: {
+            cluster:   this.cluster,
+            product:   'explorer',
+            resource:  resourceType,
+            namespace: this.row?.metadata?.namespace,
+            id:        this.row?.metadata?.name,
+          },
+          hash: '#runtime-violations',
+        };
+      }
 
       return {
-        name:   'c-cluster-product-resource-namespace-id',
-        params: {
-          cluster:   this.cluster,
-          product:   'explorer',
-          resource:  resourceType,
-          namespace: this.namespace,
-          id:        this.row?.metadata?.name || '',
-        },
+        path: `${ this.$route.path.replace(/\/$/, '') }/${ this.row?.metadata?.namespace }/${ this.row?.metadata?.name }`,
         hash: '#runtime-violations',
       };
     },
@@ -253,10 +268,17 @@ export default {
       if (!this.$refs.trigger) {
         return;
       }
-      const trigger = this.$refs.trigger.getBoundingClientRect();
+      const triggerRect = this.$refs.trigger.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
-      this.showOnTop = (viewportHeight - trigger.bottom < 300);
-    },
+      const viewportWidth = window.innerWidth;
+      const popoverWidth = 360;
+
+      // Flip above if trigger is within the bottom 260px of the viewport
+      this.showOnTop = (viewportHeight - triggerRect.bottom < 260);
+
+      // Pin to right edge if expanding to the right would overflow the screen
+      this.showOnRight = (triggerRect.left + popoverWidth > viewportWidth) || (viewportWidth - triggerRect.right < 40);
+    }
   },
 };
 </script>
@@ -324,10 +346,11 @@ $gap-size: 10px;
   position: absolute;
   top: calc(100% + #{$gap-size});
   left: 0;
-  z-index: 100;
+  right: auto;
+  z-index: 1000;
   pointer-events: auto;
 
-  /* Invisible bridge bridging trigger and card */
+  /* Invisible hover bridge between trigger and popover */
   &::before {
     content: '';
     position: absolute;
@@ -347,6 +370,12 @@ $gap-size: 10px;
       bottom: -$gap-size;
     }
   }
+
+  /* When close to the right edge of viewport, align to the right edge of cell */
+  &.align-right {
+    left: auto;
+    right: 0;
+  }
 }
 
 .popup-container {
@@ -354,7 +383,7 @@ $gap-size: 10px;
   background: var(--popover-bg, #ffffff);
   border: 1px solid var(--popover-border, #dcdee4);
   border-radius: 6px;
-  box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   padding: 16px;
   font-family: Lato, sans-serif;
   color: var(--body-text, #141419);
@@ -414,7 +443,6 @@ $gap-size: 10px;
   }
 }
 
-/* Navigational link to another page (Blue) */
 .entity-link {
   color: var(--link, #3d98d3);
   text-decoration: none;
