@@ -172,6 +172,11 @@ export default {
       default: true
     },
 
+    searchMaxWidth: {
+      type:    Number,
+      default: 200,
+    },
+
     extraSearchFields: {
       // Additional fields that aren't defined in the headers to search in on each row
       type:    Array,
@@ -1134,6 +1139,7 @@ export default {
         v-if="showHeaderRow"
         class="fixed-header-actions"
         :class="{button: !!$slots['header-button'], 'with-sub-header': !!$slots['sub-header-row'], 'advanced-filtering': hasAdvancedFiltering}"
+        :style="{ '--sortable-table-search-max-width': `${searchMaxWidth}px` }"
       >
         <div
           :class="bulkActionsClass"
@@ -2176,7 +2182,7 @@ export default {
     z-index: z-index('fixedTableHeader');
     background: transparent;
     display: grid;
-    grid-template-columns: [bulk] auto [middle] min-content [search] minmax(min-content, 400px);
+    grid-template-columns: [bulk] auto [middle] min-content [search] minmax(min-content, var(--sortable-table-search-max-width, 200px));
     grid-column-gap: 10px;
 
     &.advanced-filtering {
